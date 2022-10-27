@@ -1,0 +1,7 @@
+.profile__edit-button {
+  background: no-repeat center / 10px url('../../../images/icon-pencil.svg');
+  width: 24px;
+  height: 24px;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+}
