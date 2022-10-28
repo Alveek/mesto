@@ -1,3 +1,7 @@
 .profile {
   min-height: 120px;
+  display: grid;
+  grid-template-columns: min-content min-content auto;
+  gap: 30px;
+  align-items: center;
 }

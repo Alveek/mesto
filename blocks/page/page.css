@@ -1,6 +1,6 @@
-* {
+/* * {
   border: 1px solid hotpink;
-}
+} */
 
 .page {
   box-sizing: border-box;
@@ -8,6 +8,8 @@
   padding: 45px 19px 60px;
   display: grid;
   grid-template-columns: minmax(max-content, 880px);
+  grid-template-rows: min-content auto min-content;
+  height: 100vh;
   justify-content: center;
 
   font-family: "Inter", "Arial", sans-serif;
