@@ -4,4 +4,5 @@
   grid-template-columns: min-content min-content auto;
   gap: 30px;
   align-items: center;
+  padding-bottom: 50px;
 }
