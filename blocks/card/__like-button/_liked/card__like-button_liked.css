@@ -1,0 +1,7 @@
+.card__like-button_liked {
+  background: no-repeat center url('../../../../images/icon-heart_liked.svg');
+  width: 22px;
+  height: 19px;
+  border: none;
+  cursor: pointer;
+}

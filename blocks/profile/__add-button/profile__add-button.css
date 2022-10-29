@@ -1,9 +1,23 @@
 .profile__add-button {
-  background: no-repeat center / 22px url('../../../images/icon-plus.svg');
+  background: no-repeat center url('../../../images/icon-plus.svg');
   justify-self: end;
   width: 150px;
   height: 50px;
   border: 2px solid #ffffff;
   border-radius: 2px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__add-button {
+    justify-self: center;
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__add-button {
+    background-size: 16px;
+    width: 100%;
+  }
 }

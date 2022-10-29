@@ -1,0 +1,5 @@
+.card__item {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}

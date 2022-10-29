@@ -1,0 +1,8 @@
+.card__like-button {
+  background: no-repeat center/contain url('../../../images/icon-heart.svg');
+  width: 32px;
+  height: 19px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}

@@ -1,11 +1,7 @@
-/* * {
-  border: 1px solid hotpink;
-} */
-
 .page {
   box-sizing: border-box;
   background-color: #000000;
-  padding: 45px 19px 60px;
+  padding: 45px 19px 0;
   display: grid;
   grid-template-columns: minmax(max-content, 880px);
   grid-template-rows: min-content auto min-content;
@@ -19,4 +15,10 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
+}
+
+@media screen and (max-width: 768px) {
+  .page {
+    padding: 28px 19px 0;
+  }
 }

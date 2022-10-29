@@ -1,4 +1,8 @@
 .card__items {
-  list-style: none;
   padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(auto, 282px));
+  justify-content: center;
+  gap: 20px 17px;
 }
