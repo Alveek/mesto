@@ -20,7 +20,7 @@
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button type="button" class="profile__edit-button opacity"></button>
-        <p class="profile__occupation">Исследователь океана</p>
+        <p class="profile__job">Исследователь океана</p>
       </div>
       <button type="button" class="profile__add-button opacity"></button>
     </section>
@@ -77,12 +77,14 @@
       </ul>
     </section>
 
-    <div class="popup">
+    <div class="popup popup_opened">
       <div class="popup__content">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" value="Жак ив кусто" width="358px">
-        <input type="text" value="Исследователь" width="358px">
-        <button style="display: block; width: 358px;">Сохранить</button>
+        <form class="form">
+          <input class="form__input form__input_user_name" type="text">
+          <input class="form__input form__input_user_job" type="text">
+          <button class="form__button" type="submit" style="display: block; width: 358px;">Сохранить</button>
+        </form>
         <button class="popup__close-button opacity" type="button"></button>
       </div>
     </div>

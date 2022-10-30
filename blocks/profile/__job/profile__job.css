@@ -1,4 +1,4 @@
-.profile__occupation {
+.profile__job {
   color: #fff;
   font-weight: 400;
   font-size: 18px;
@@ -7,14 +7,14 @@
 }
 
 @media screen and (max-width: 768px) {
-  .profile__occupation {
+  .profile__job {
     grid-column: 1 / -1;
     justify-self: center;
   }
 }
 
 @media screen and (max-width: 425px) {
-  .profile__occupation {
+  .profile__job {
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
