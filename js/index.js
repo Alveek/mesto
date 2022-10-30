@@ -30,8 +30,8 @@ profileEditButton.addEventListener('click', () => {
   onOpen(popupElem);
 });
 
-function formSubmitHandler(evt) {
-  evt.preventDefault();
+function formSubmitHandler(event) {
+  event.preventDefault();
 
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
@@ -42,4 +42,4 @@ popupElem.addEventListener('click', function (event) {
   handlePopupDisplay(event);
 });
 
-formElem.addEventListener('click', formSubmitHandler);
+formElem.addEventListener('submit', formSubmitHandler);

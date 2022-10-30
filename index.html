@@ -16,11 +16,11 @@
 
   <main>
     <section class="profile">
-      <img src="./images/avatar.jpeg" alt="Аватарка" class="profile__avatar">
+      <img src="./images/vangogh.jpeg" alt="Аватарка" class="profile__avatar">
       <div class="profile__info">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <h1 class="profile__name">Винсент Ван Гог</h1>
         <button type="button" class="profile__edit-button opacity"></button>
-        <p class="profile__job">Исследователь океана</p>
+        <p class="profile__job">Художник</p>
       </div>
       <button type="button" class="profile__add-button opacity"></button>
     </section>
@@ -77,16 +77,14 @@
       </ul>
     </section>
 
-    <div class="popup popup_opened">
-      <div class="popup__content">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="form">
-          <input class="form__input form__input_user_name" type="text">
-          <input class="form__input form__input_user_job" type="text">
-          <button class="form__button" type="submit" style="display: block; width: 358px;">Сохранить</button>
-        </form>
+    <div class="popup">
+      <form class="form">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <input class="form__input form__input_user_name" type="text">
+        <input class="form__input form__input_user_job" type="text">
+        <button class="form__button" type="submit">Сохранить</button>
         <button class="popup__close-button opacity" type="button"></button>
-      </div>
+      </form>
     </div>
   </main>
 

@@ -1,0 +1,18 @@
+.form {
+  box-sizing: border-box;
+  display: grid;
+
+  position: relative;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 36px;
+  width: 430px;
+}
+
+@media screen and (max-width: 425px) {
+  .form {
+    width: 100%;
+    padding: 25px 26px;
+  }
+}
