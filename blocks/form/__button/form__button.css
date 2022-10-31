@@ -5,9 +5,11 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  padding: 14px 0 18px;
+  padding: 11px 0 18px;
   text-align: center;
   cursor: pointer;
+  margin-top: 18px;
+
 
   color: #FFFFFF;
   transition: background .2s linear;

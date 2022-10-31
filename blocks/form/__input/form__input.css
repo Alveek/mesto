@@ -5,9 +5,5 @@
   line-height: 17px;
   padding-bottom: 13px;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
-  margin-bottom: 30px;
-}
-
-.form__input:last-child {
-  margin-bottom: 50px;
+  margin-bottom: 26px;
 }

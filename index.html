@@ -14,13 +14,13 @@
     <img class="header__logo" src="./images/logo.svg" alt="Логотип Место">
   </header>
 
-  <main>
+  <main class="main">
     <section class="profile">
-      <img src="./images/vangogh.jpeg" alt="Аватарка" class="profile__avatar">
+      <img src="./images/avatar.jpeg" alt="Аватарка" class="profile__avatar">
       <div class="profile__info">
-        <h1 class="profile__name">Винсент Ван Гог</h1>
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button type="button" class="profile__edit-button opacity"></button>
-        <p class="profile__job">Художник</p>
+        <p class="profile__job">Исследователь океана</p>
       </div>
       <button type="button" class="profile__add-button opacity"></button>
     </section>
@@ -28,7 +28,8 @@
     <section class="card">
       <ul class="card__items">
         <li class="card__item">
-          <img class="card__image" src="./images/temp-image.jpeg" alt="Фотография места, в котором побывал автор">
+          <img class="card__image" src="./images/kirill-pershin-1088404-unsplash.jpeg"
+            alt="Фотография места, в котором побывал автор">
           <div class="card__description">
             <p class="card__title">Карачаевск</p>
             <button class="card__like-button opacity"></button>
@@ -36,7 +37,8 @@
         </li>
 
         <li class="card__item">
-          <img class="card__image" src="./images/temp-image.jpeg" alt="Фотография места, в котором побывал автор">
+          <img class="card__image" src="./images/kirill-pershin-1404681-unsplash.jpeg"
+            alt="Фотография места, в котором побывал автор">
           <div class="card__description">
             <p class="card__title">Гора Эльбрус</p>
             <button class="card__like-button opacity"></button>
@@ -44,7 +46,8 @@
         </li>
 
         <li class="card__item">
-          <img class="card__image" src="./images/temp-image.jpeg" alt="Фотография места, в котором побывал автор">
+          <img class="card__image" src="./images/kirill-pershin-1556355-unsplash.jpeg"
+            alt="Фотография места, в котором побывал автор">
           <div class="card__description">
             <p class="card__title">Домбай</p>
             <button class="card__like-button opacity"></button>
@@ -52,7 +55,8 @@
         </li>
 
         <li class="card__item">
-          <img class="card__image" src="./images/temp-image.jpeg" alt="Фотография места, в котором побывал автор">
+          <img class="card__image" src="./images/kirill-pershin-1404681-unsplash.jpeg"
+            alt="Фотография места, в котором побывал автор">
           <div class="card__description">
             <p class="card__title">Гора Эльбрус</p>
             <button class="card__like-button opacity"></button>
@@ -60,7 +64,8 @@
         </li>
 
         <li class="card__item">
-          <img class="card__image" src="./images/temp-image.jpeg" alt="Фотография места, в котором побывал автор">
+          <img class="card__image" src="./images/kirill-pershin-1556355-unsplash.jpeg"
+            alt="Фотография места, в котором побывал автор">
           <div class="card__description">
             <p class="card__title">Домбай</p>
             <button class="card__like-button opacity"></button>
@@ -68,7 +73,8 @@
         </li>
 
         <li class="card__item">
-          <img src="./images/temp-image.jpeg" alt="Фотография места, в котором побывал автор" class="card__image">
+          <img src="./images/kirill-pershin-1088404-unsplash.jpeg" alt="Фотография места, в котором побывал автор"
+            class="card__image">
           <div class="card__description">
             <p class="card__title">Карачаево-Черкессия</p>
             <button class="card__like-button opacity"></button>
@@ -78,16 +84,17 @@
     </section>
 
     <div class="popup">
-      <form class="form">
-        <h2 class="form__title">Редактировать профиль</h2>
-        <input class="form__input form__input_user_name" type="text">
-        <input class="form__input form__input_user_job" type="text">
-        <button class="form__button" type="submit">Сохранить</button>
-        <button class="popup__close-button opacity" type="button"></button>
-      </form>
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="form">
+          <input class="form__input form__input_user_name" name="userName" type="text">
+          <input class="form__input form__input_user_job" name="userJob" type="text">
+          <button class="form__button" type="submit">Сохранить</button>
+          <button class="popup__close-button opacity" type="button"></button>
+        </form>
+      </div>
     </div>
   </main>
-
 
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>

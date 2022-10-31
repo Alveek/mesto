@@ -1,6 +1,6 @@
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 425px) {
   .header__logo {
     width: 103px;
-    padding-left: 8px;
+    padding-left: 27px;
   }
 }
