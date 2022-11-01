@@ -2,4 +2,5 @@
   display: flex;
   flex-direction: column;
   list-style: none;
+  cursor: pointer;
 }
