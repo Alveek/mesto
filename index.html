@@ -25,72 +25,67 @@
       <button type="button" class="profile__add-button opacity"></button>
     </section>
 
-    <section class="card">
+    <section class="card" aria-label="Карточки">
       <ul class="card__items">
         <li class="card__item">
-          <img class="card__image opacity" src="./images/kirill-pershin-1088404-unsplash.jpeg"
-            alt="Фотография места, в котором побывал автор">
+          <img class="card__image opacity" src="./images/kirill-pershin-1088404-unsplash.jpeg" alt="Карачаевск">
           <div class="card__description">
             <p class="card__title opacity">Карачаевск</p>
-            <button class="card__like-button opacity"></button>
+            <button type="button" class="card__like-button opacity" aria-label="Лайк"></button>
           </div>
         </li>
 
         <li class="card__item">
-          <img class="card__image opacity" src="./images/kirill-pershin-1404681-unsplash.jpeg"
-            alt="Фотография места, в котором побывал автор">
+          <img class="card__image opacity" src="./images/kirill-pershin-1404681-unsplash.jpeg" alt="Гора Эльбрус">
           <div class="card__description">
             <p class="card__title opacity">Гора Эльбрус</p>
-            <button class="card__like-button opacity"></button>
+            <button type="button" class="card__like-button opacity" aria-label="Лайк"></button>
           </div>
         </li>
 
         <li class="card__item">
-          <img class="card__image opacity" src="./images/kirill-pershin-1556355-unsplash.jpeg"
-            alt="Фотография места, в котором побывал автор">
+          <img class="card__image opacity" src="./images/kirill-pershin-1556355-unsplash.jpeg" alt="Домбай">
           <div class="card__description">
             <p class="card__title opacity">Домбай</p>
-            <button class="card__like-button opacity"></button>
+            <button type="button" class="card__like-button opacity" aria-label="Лайк"></button>
           </div>
         </li>
 
         <li class="card__item">
-          <img class="card__image opacity" src="./images/kirill-pershin-1404681-unsplash.jpeg"
-            alt="Фотография места, в котором побывал автор">
+          <img class="card__image opacity" src="./images/kirill-pershin-1404681-unsplash.jpeg" alt="Гора Эльбрус">
           <div class="card__description">
             <p class="card__title opacity">Гора Эльбрус</p>
-            <button class="card__like-button opacity"></button>
+            <button type="button" class="card__like-button opacity" aria-label="Лайк"></button>
           </div>
         </li>
 
         <li class="card__item">
-          <img class="card__image opacity" src="./images/kirill-pershin-1556355-unsplash.jpeg"
-            alt="Фотография места, в котором побывал автор">
+          <img class="card__image opacity" src="./images/kirill-pershin-1556355-unsplash.jpeg" alt="Домбай">
           <div class="card__description">
             <p class="card__title opacity">Домбай</p>
-            <button class="card__like-button opacity"></button>
+            <button type="button" class="card__like-button opacity" aria-label="Лайк"></button>
           </div>
         </li>
 
         <li class="card__item">
-          <img src="./images/kirill-pershin-1088404-unsplash.jpeg" alt="Фотография места, в котором побывал автор"
+          <img src="./images/kirill-pershin-1088404-unsplash.jpeg" alt="Карачаево-Черкессия"
             class="card__image opacity">
           <div class="card__description">
             <p class="card__title opacity">Карачаево-Черкессия</p>
-            <button class="card__like-button opacity"></button>
+            <button type="button" class="card__like-button opacity" aria-label="Лайк"></button>
           </div>
         </li>
       </ul>
     </section>
 
-    <div class="popup">
+    <div class="popup popup_opened">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="form">
+        <form class="form" name="profile-form">
           <input class="form__input form__input_user_name" name="userName" type="text">
           <input class="form__input form__input_user_job" name="userJob" type="text">
           <button class="form__button" type="submit">Сохранить</button>
-          <button class="popup__close-button opacity" type="button"></button>
+          <button type="button" class="popup__close-button opacity" aria-label="Закрыть попап"></button>
         </form>
       </div>
     </div>
