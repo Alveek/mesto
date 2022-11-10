@@ -47,7 +47,6 @@ popupElem.addEventListener('click', function (event) {
 
 formElem.addEventListener('submit', handleFormSubmit);
 
-
 function renderCards() {
   initialCards.forEach(function (card) {
     const cardTemplate = document.querySelector('#card-template').content;
@@ -58,19 +57,6 @@ function renderCards() {
     cardElement.querySelector('.card__title').textContent = card.name;
     cardsContainer.prepend(cardElement);
   });
-
-
-  // songElement.querySelector('.song__artist').textContent = artistValue;
-  // songElement.querySelector('.song__title').textContent = titleValue;
-  // songsContainer.append(songElement);
 }
 
 renderCards();
-
-{/* <li class="card__item">
-  <img class="card__image">
-    <div class="card__description">
-      <p class="card__title"></p>
-      <button type="button" class="card__like-button opacity" aria-label="Лайк"></button>
-    </div>
-</li> */}
