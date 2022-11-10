@@ -3,9 +3,4 @@
   flex-direction: column;
   list-style: none;
   cursor: pointer;
-  transition: opacity .2s linear;
-}
-
-.card__item:hover {
-  opacity: 0.8;
 }
