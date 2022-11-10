@@ -27,7 +27,17 @@
 
     <section class="card" aria-label="Карточки">
       <ul class="card__items">
-        <li class="card__item">
+        <template id="card-template">
+          <li class="card__item">
+            <img class="card__image">
+            <div class="card__description">
+              <p class="card__title"></p>
+              <button type="button" class="card__like-button opacity" aria-label="Лайк"></button>
+            </div>
+          </li>
+        </template>
+
+        <!-- <li class="card__item">
           <img class="card__image" src="./images/kirill-pershin-1088404-unsplash.jpeg" alt="Карачаевск">
           <div class="card__description">
             <p class="card__title">Карачаевск</p>
@@ -73,7 +83,7 @@
             <p class="card__title">Карачаево-Черкессия</p>
             <button type="button" class="card__like-button opacity" aria-label="Лайк"></button>
           </div>
-        </li>
+        </li> -->
       </ul>
     </section>
 
@@ -94,7 +104,8 @@
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
 
-  <script src="./js/index.js"></script>
+  <script type="module" src="./scripts/index.js"></script>
+  <script type="module" src="./scripts/cards-data.js"></script>
 </body>
 
 </html>
