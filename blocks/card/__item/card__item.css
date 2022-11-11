@@ -1,6 +1,7 @@
 .card__item {
   display: flex;
   flex-direction: column;
+  position: relative;
   list-style: none;
   cursor: pointer;
 }

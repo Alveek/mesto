@@ -1,4 +1,4 @@
-import { cards } from "./cards-data.js";
+import { initialCards } from "./cards-data.js";
 
 const profileEditButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
@@ -50,7 +50,6 @@ function addNewCard() {
   let cardName = document.querySelector('.form__input_card_name');
   let cardLink = document.querySelector('.form__input_card_link');
   const card = { name: cardName.value, link: cardLink.value };
-  cards.push(card);
   cardName.value = '';
   cardLink.value = '';
   createCard(card);
@@ -91,11 +90,12 @@ function createCard(card) {
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__image').alt = card.name;
   cardElement.querySelector('.card__title').textContent = card.name;
+  cardElement.querySelector('.card__like-button').addEventListener('click', (event) => event.target.classList.toggle('card__like-button_liked'));
   cardsContainer.prepend(cardElement);
 }
 
 function renderCards() {
-  cards.forEach(function (card) {
+  initialCards.forEach(function (card) {
     createCard(card);
   });
 }
