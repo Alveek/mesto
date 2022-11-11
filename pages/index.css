@@ -1,6 +1,7 @@
 @import url("../vendor/normalize.css");
 @import url("../vendor/fonts/Inter/inter.css");
 @import url("../blocks/opacity/opacity.css");
+@import url("../blocks/fade-animation/fade-animation.css");
 @import url("../blocks/page/page.css");
 
 @import url("../blocks/header/header.css");

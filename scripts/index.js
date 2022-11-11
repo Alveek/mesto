@@ -55,6 +55,14 @@ function addNewCard() {
   createCard(card);
 }
 
+function deleteCard(event) {
+  event.target.closest('.card__item').remove();
+}
+
+function toggleLikeCard(event) {
+  event.target.classList.toggle('card__like-button_liked');
+}
+
 profileEditButton.addEventListener('click', (event) => {
   addProfileDataToForm();
   openPopup(event);
@@ -90,7 +98,8 @@ function createCard(card) {
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__image').alt = card.name;
   cardElement.querySelector('.card__title').textContent = card.name;
-  cardElement.querySelector('.card__like-button').addEventListener('click', (event) => event.target.classList.toggle('card__like-button_liked'));
+  cardElement.querySelector('.card__like-button').addEventListener('click', (event) => toggleLikeCard(event));
+  cardElement.querySelector('.card__delete-button').addEventListener('click', (event) => deleteCard(event));
   cardsContainer.prepend(cardElement);
 }
 
