@@ -1,4 +1,4 @@
-import { initialCards } from "./cards-data.js";
+import { cards } from "./cards-data.js";
 
 const profileEditButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
@@ -50,7 +50,7 @@ function addNewCard() {
   let cardName = document.querySelector('.form__input_card_name');
   let cardLink = document.querySelector('.form__input_card_link');
   const card = { name: cardName.value, link: cardLink.value };
-  initialCards.push(card);
+  cards.push(card);
   cardName.value = '';
   cardLink.value = '';
   createCard(card);
@@ -95,7 +95,7 @@ function createCard(card) {
 }
 
 function renderCards() {
-  initialCards.forEach(function (card) {
+  cards.forEach(function (card) {
     createCard(card);
   });
 }
