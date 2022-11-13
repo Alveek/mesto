@@ -1,5 +1,7 @@
 .card {
   padding-bottom: 66px;
+  /* это для того, чтобы с телефона не было синих вспышек при нажатии*/
+  -webkit-tap-highlight-color: transparent;
 }
 
 @media screen and (max-width: 425px) {

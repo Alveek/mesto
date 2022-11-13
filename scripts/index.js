@@ -12,6 +12,10 @@ const jobInput = document.querySelector('.form__input_user_job');
 const formElem = document.querySelectorAll('.form');
 const cardsContainer = document.querySelector('.card__items');
 
+//Чтобы при открытии страницы не мелькали попапы, контейнер попапов становится блоком только после загрузки содержимого.
+window.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelector('.popups').style = `display: block`;
+});
 
 function addProfileDataToForm() {
   nameInput.value = profileName.textContent;
@@ -91,6 +95,14 @@ formElem.forEach(item => {
   });
 })
 
+function previewImage(image) {
+  let popupImage = document.querySelector('.popup__image');
+  let popupImageText = document.querySelector('.popup__image-description');
+  popupImage.src = image.target.src;
+  popupImageText.textContent = image.target.alt;
+  document.querySelector('.popup_type_image-preview').classList.add('popup_opened');
+}
+
 function createCard(card) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card__item').cloneNode(true);
@@ -98,8 +110,10 @@ function createCard(card) {
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__image').alt = card.name;
   cardElement.querySelector('.card__title').textContent = card.name;
-  cardElement.querySelector('.card__like-button').addEventListener('click', (event) => toggleLikeCard(event));
-  cardElement.querySelector('.card__delete-button').addEventListener('click', (event) => deleteCard(event));
+  cardElement.querySelector('.card__like-button').addEventListener('click', toggleLikeCard);
+  cardElement.querySelector('.card__delete-button').addEventListener('click', deleteCard);
+  cardElement.querySelector('.card__image').addEventListener('click', previewImage);
+
   cardsContainer.prepend(cardElement);
 }
 
