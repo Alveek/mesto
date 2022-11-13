@@ -6,4 +6,23 @@
   height: 19px;
   border: none;
   cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.card__like-button_liked {
+  animation: scaled .5s;
+}
+
+@keyframes scaled {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.4);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

@@ -1,7 +1,7 @@
 import { initialCards } from "./cards-data.js";
 
 const profileEditButton = document.querySelector('.profile__edit-button');
-const addCardButton = document.querySelector('.profile__add-button');
+const cardAddButton = document.querySelector('.profile__add-button');
 const popupElem = document.querySelectorAll('.popup');
 const popupEditProfile = document.querySelector('.popup_type_profile-info');
 const popupAddCard = document.querySelector('.popup_type_add-card');
@@ -30,7 +30,7 @@ function closePopup(event) {
 function openPopup(popup) {
   if (popup.target === profileEditButton) {
     popupEditProfile.classList.add('popup_opened');
-  } else if (popup.target === addCardButton) {
+  } else if (popup.target === cardAddButton) {
     popupAddCard.classList.add('popup_opened')
   }
 }
@@ -68,11 +68,11 @@ profileEditButton.addEventListener('click', (event) => {
   openPopup(event);
 });
 
-addCardButton.addEventListener('click', (event) => {
+cardAddButton.addEventListener('click', (event) => {
   openPopup(event);
 });
 
-addCardButton.addEventListener('click', (event) => {
+cardAddButton.addEventListener('click', (event) => {
   event.preventDefault();
 
 })
