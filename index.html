@@ -49,9 +49,11 @@
     <div class="popup popup_type_profile-info">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="form form_type_profile-form" name="profile-form">
-          <input class="form__input form__input_user_name" name="userName" type="text" placeholder="Ваше имя">
-          <input class="form__input form__input_user_job" name="userJob" type="text" placeholder="Род деятельности">
+        <form class="form form_type_profile" name="profile-form">
+          <input class="form__input form__input_user_name" name="userName" type="text" placeholder="Ваше имя"
+            autocomplete="off" required>
+          <input class="form__input form__input_user_job" name="userJob" type="text" placeholder="Род деятельности"
+            autocomplete="off" required>
           <button class="form__button" type="submit">Сохранить</button>
           <button type="button" class="popup__close-button opacity" aria-label="Закрыть попап"></button>
         </form>
@@ -61,9 +63,11 @@
     <div class="popup popup_type_add-card">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
-        <form class="form form_type_add-form" name="add-form">
-          <input class="form__input form__input_card_name" name="cardName" type="text" placeholder="Название">
-          <input class="form__input form__input_card_link" name="cardLink" type="text" placeholder="Ссылка на картинку">
+        <form class="form form_type_new-card" name="add-form">
+          <input class="form__input form__input_card_name" name="cardName" type="text" placeholder="Название"
+            autocomplete="off" required>
+          <input class="form__input form__input_card_link" name="cardLink" type="text" placeholder="Ссылка на картинку"
+            autocomplete="off" required>
           <button class="form__button" type="submit">Создать</button>
           <button type="button" class="popup__close-button opacity" aria-label="Закрыть попап"></button>
         </form>
