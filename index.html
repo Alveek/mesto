@@ -45,43 +45,43 @@
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
 
-  <div class="popups">
-    <div class="popup popup_type_profile-info">
-      <div class="popup__container">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="form form_type_profile" name="profile-form">
-          <input class="form__input form__input_user_name" name="userName" type="text" placeholder="Ваше имя"
-            autocomplete="off" required>
-          <input class="form__input form__input_user_job" name="userJob" type="text" placeholder="Род деятельности"
-            autocomplete="off" required>
-          <button class="form__button" type="submit">Сохранить</button>
-          <button type="button" class="popup__close-button opacity" aria-label="Закрыть попап"></button>
-        </form>
-      </div>
-    </div>
 
-    <div class="popup popup_type_add-card">
-      <div class="popup__container">
-        <h2 class="popup__title">Новое место</h2>
-        <form class="form form_type_new-card" name="add-form">
-          <input class="form__input form__input_card_name" name="cardName" type="text" placeholder="Название"
-            autocomplete="off" required>
-          <input class="form__input form__input_card_link" name="cardLink" type="text" placeholder="Ссылка на картинку"
-            autocomplete="off" required>
-          <button class="form__button" type="submit">Создать</button>
-          <button type="button" class="popup__close-button opacity" aria-label="Закрыть попап"></button>
-        </form>
-      </div>
-    </div>
-
-    <div class="popup popup_type_image-preview">
-      <div class="popup__image-container">
-        <img class="popup__image" src="./images/temp.jpeg" alt="">
-        <p class="popup__image-description">Карачаево-Черкессия</p>
-        <button type="button" class="popup__close-button opacity" aria-label="Закрыть попап"></button>
-      </div>
+  <div class="popup popup_type_profile-info popup_hidden">
+    <div class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="form form_type_profile" name="profile-form">
+        <input class="form__input form__input_user_name" name="userName" type="text" placeholder="Ваше имя"
+          autocomplete="off" required>
+        <input class="form__input form__input_user_job" name="userJob" type="text" placeholder="Род деятельности"
+          autocomplete="off" required>
+        <button class="form__button" type="submit">Сохранить</button>
+      </form>
+      <button type="button" class="popup__close-button opacity" aria-label="Закрыть попап"></button>
     </div>
   </div>
+
+  <div class="popup popup_type_add-card popup_hidden">
+    <div class="popup__container">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="form form_type_new-card" name="add-form">
+        <input class="form__input form__input_card_name" name="cardName" type="text" placeholder="Название"
+          autocomplete="off" required>
+        <input class="form__input form__input_card_link" name="cardLink" type="text" placeholder="Ссылка на картинку"
+          autocomplete="off" required>
+        <button class="form__button" type="submit">Создать</button>
+      </form>
+      <button type="button" class="popup__close-button opacity" aria-label="Закрыть попап"></button>
+    </div>
+  </div>
+
+  <div class="popup popup_type_image-preview popup_hidden">
+    <div class="popup__image-container">
+      <img class="popup__image" src="#" alt="">
+      <p class="popup__image-description"></p>
+      <button type="button" class="popup__close-button opacity" aria-label="Закрыть попап"></button>
+    </div>
+  </div>
+
 
   <script type="module" src="./scripts/index.js"></script>
 </body>
