@@ -30,7 +30,7 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
-  event.target.closest(".popup").classList.remove("popup_opened");
+  popup.classList.remove("popup_opened");
 }
 
 function addProfileDataToForm() {
@@ -72,7 +72,7 @@ function createCard(card) {
   cardTitle.textContent = card.name;
   cardElement.querySelector(".card__like-button").addEventListener("click", toggleLikeCard);
   cardElement.querySelector(".card__delete-button").addEventListener("click", deleteCard);
-  cardImage.addEventListener("click", () => previewImage(cardImage.src, cardTitle.textContent));
+  cardImage.addEventListener("click", () => previewImage(card.link, card.name));
 
   return cardElement;
 }
