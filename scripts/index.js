@@ -97,7 +97,7 @@ function handleAddNewCard(event) {
   renderCard(card);
 
   formNewCard.reset();
-  closePopup(popupImagePreview);
+  closePopup(popupAddCard);
 }
 
 popups.forEach((popup) => {
