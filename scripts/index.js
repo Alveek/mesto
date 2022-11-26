@@ -25,6 +25,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
   popups.forEach(popup => popup.classList.remove("popup_hidden"));
 });
 
+document.addEventListener('keydown', (event) => {
+  const currentOpenedPopup = document.querySelector('.popup_opened');
+  if (event.key === "Escape" && currentOpenedPopup) {
+    closePopup(currentOpenedPopup);
+  }
+});
+
 function openPopup(popup) {
   popup.classList.add("popup_opened");
 }
@@ -95,7 +102,6 @@ function handleAddNewCard(event) {
 
   const card = { name: cardName.value, link: cardLink.value };
   renderCard(card);
-
   formNewCard.reset();
   closePopup(popupAddCard);
 }
