@@ -122,7 +122,7 @@ popups.forEach((popup) => {
 
 profileEditButton.addEventListener("click", () => {
   addProfileDataToForm();
-  // enableValidation();
+  enableValidation(validationConfig);
   openPopup(popupEditProfile);
 });
 
