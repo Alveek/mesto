@@ -23,6 +23,7 @@ const cardTemplate = document.querySelector("#card-template").content;
 //Чтобы при открытии страницы не мелькали попапы, после загрузки содержимого у попапов удаляется класс скрывающий их
 window.addEventListener("DOMContentLoaded", (event) => {
   popups.forEach(popup => popup.classList.remove("popup_hidden"));
+
 });
 
 document.addEventListener('keydown', (event) => {
@@ -107,18 +108,21 @@ function handleAddNewCard(event) {
 }
 
 popups.forEach((popup) => {
+  const popupForm = popup.querySelector('.form');
   popup.addEventListener("click", function (event) {
     if (
       event.target.classList.contains("popup__close-button") ||
       event.target.classList.contains("popup_opened")
     ) {
       closePopup(popup);
+      popupForm.reset();
     }
   });
 });
 
 profileEditButton.addEventListener("click", () => {
   addProfileDataToForm();
+  // enableValidation();
   openPopup(popupEditProfile);
 });
 

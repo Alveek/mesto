@@ -1,0 +1,6 @@
+.form__input-error {
+  font-size: 12px;
+  color: red;
+  opacity: 0;
+  transition: 0.3s;
+}

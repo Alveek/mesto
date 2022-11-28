@@ -18,6 +18,13 @@
   background: rgba(0, 0, 0, .8);
 }
 
+.form__button:disabled {
+  color: #b8b8b8;
+  background: #ededed;
+  pointer-events: none;
+  user-select: none;
+}
+
 @media screen and (max-width: 425px) {
   .form__button {
     margin-top: 11px;
