@@ -1,5 +1,5 @@
 import { initialCards } from './cards-data.js';
-import { validationConfig, enableValidation } from './validate.js';
+import { validationConfig, enableValidation, hideInputError } from './validate.js';
 
 const profileEditButton = document.querySelector('.profile__edit-button');
 const cardAddButton = document.querySelector('.profile__add-button');
@@ -14,7 +14,9 @@ const profileJobText = document.querySelector('.profile__job');
 const profileNameInput = document.querySelector('.form__input_user_name');
 const profileJobInput = document.querySelector('.form__input_user_job');
 const formProfile = document.querySelector('.form_type_profile');
+const formProfileButton = formProfile.querySelector('.form__button');
 const formNewCard = document.querySelector('.form_type_new-card');
+const formNewCardButton = formNewCard.querySelector('.form__button');
 const cardsContainer = document.querySelector('.card__items');
 const cardName = document.querySelector('.form__input_card_name');
 const cardLink = document.querySelector('.form__input_card_link');
@@ -32,6 +34,13 @@ function closePopupByEsc(event) {
   }
 }
 
+function resetErrors(form) {
+  const inputs = form.querySelectorAll('.form__input');
+  inputs.forEach(input => {
+    hideInputError(form, input, validationConfig)
+  })
+}
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByEsc);
@@ -46,9 +55,6 @@ function addProfileDataToForm() {
   profileNameInput.value = profileNameText.textContent;
   profileJobInput.value = profileJobText.textContent;
 }
-
-// добавление данных в инпуты формы профиля, чтобы прошла их валидация и кнопка сохранить была активной.
-addProfileDataToForm();
 
 function handleChangeProfileInfo(event) {
   event.preventDefault();
@@ -112,9 +118,22 @@ function handleAddNewCard(event) {
   const card = { name: cardName.value, link: cardLink.value };
   renderCard(card);
   formNewCard.reset();
-  formNewCard.querySelector('.form__button').disabled = true;
+  formNewCardButton.disabled = true;
   closePopup(popupAddCard);
 }
+
+profileEditButton.addEventListener('click', () => {
+  addProfileDataToForm();
+  formProfileButton.disabled = false;
+  resetErrors(formProfile);
+  openPopup(popupEditProfile);
+});
+
+cardAddButton.addEventListener('click', () => {
+  formNewCard.reset();
+  resetErrors(formNewCard);
+  openPopup(popupAddCard);
+});
 
 popups.forEach(popup => {
   popup.addEventListener('mousedown', event => {
@@ -125,15 +144,6 @@ popups.forEach(popup => {
       closePopup(popup);
     }
   });
-});
-
-profileEditButton.addEventListener('click', () => {
-  addProfileDataToForm();
-  openPopup(popupEditProfile);
-});
-
-cardAddButton.addEventListener('click', () => {
-  openPopup(popupAddCard);
 });
 
 formProfile.addEventListener('submit', handleChangeProfileInfo);
