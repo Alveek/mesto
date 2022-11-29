@@ -117,8 +117,6 @@ function handleAddNewCard(event) {
 
   const card = { name: cardName.value, link: cardLink.value };
   renderCard(card);
-  formNewCard.reset();
-  formNewCardButton.disabled = true;
   closePopup(popupAddCard);
 }
 
@@ -130,6 +128,7 @@ profileEditButton.addEventListener('click', () => {
 });
 
 cardAddButton.addEventListener('click', () => {
+  formNewCardButton.disabled = true;
   formNewCard.reset();
   resetErrors(formNewCard);
   openPopup(popupAddCard);

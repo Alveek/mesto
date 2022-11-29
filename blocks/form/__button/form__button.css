@@ -1,5 +1,6 @@
 .form__button {
   all: unset;
+  box-sizing: border-box;
   background: #000000;
   border-radius: 2px;
   font-weight: 400;

@@ -6,3 +6,15 @@
   justify-content: center;
   gap: 20px 17px;
 }
+
+@media screen and (max-width: 920px) {
+  .card__items {
+    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .card__items {
+    grid-template-columns: calc(100vw - 38px);
+  }
+}
