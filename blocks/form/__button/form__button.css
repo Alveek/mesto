@@ -19,10 +19,12 @@
 }
 
 .form__button:disabled {
-  color: #b8b8b8;
-  background: #ededed;
+  color: #000000;
+  background-color: #F7F7F7;
+  border: 1px solid #000000;
   pointer-events: none;
   user-select: none;
+  opacity: 0.2;
 }
 
 @media screen and (max-width: 425px) {
