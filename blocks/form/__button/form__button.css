@@ -10,7 +10,7 @@
   min-height: 50px;
   text-align: center;
   cursor: pointer;
-  margin-top: 18px;
+  margin-top: 19px;
   color: #FFFFFF;
   transition: background .2s linear;
 }
@@ -30,7 +30,7 @@
 
 @media screen and (max-width: 425px) {
   .form__button {
-    margin-top: 11px;
+    /* margin-top: 11px; */
     font-size: 14px;
     line-height: 17px;
   }
