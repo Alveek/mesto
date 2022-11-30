@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import { initialCards } from './cards-data.js';
 import { validationConfig, enableValidation, hideInputError } from './validate.js';
 
@@ -22,23 +23,24 @@ const cardName = document.querySelector('.form__input_card_name');
 const cardLink = document.querySelector('.form__input_card_link');
 const cardTemplate = document.querySelector('#card-template').content;
 
-//Чтобы при открытии страницы не мелькали попапы, после загрузки содержимого у попапов удаляется класс скрывающий их
-window.addEventListener('DOMContentLoaded', event => {
-  popups.forEach(popup => popup.classList.remove('popup_hidden'));
+// Чтобы при открытии страницы не мелькали попапы
+// после загрузки содержимого у попапов удаляется класс скрывающий их
+window.addEventListener('DOMContentLoaded', () => {
+  popups.forEach((popup) => popup.classList.remove('popup_hidden'));
 });
+
+function resetErrors(form) {
+  const inputs = form.querySelectorAll('.form__input');
+  inputs.forEach((input) => {
+    hideInputError(form, input, validationConfig);
+  });
+}
 
 function closePopupByEsc(event) {
   if (event.key === 'Escape') {
     const currentOpenedPopup = document.querySelector('.popup_opened');
     closePopup(currentOpenedPopup);
   }
-}
-
-function resetErrors(form) {
-  const inputs = form.querySelectorAll('.form__input');
-  inputs.forEach(input => {
-    hideInputError(form, input, validationConfig)
-  })
 }
 
 function openPopup(popup) {
@@ -88,12 +90,8 @@ function createCard(card) {
   cardImage.src = card.link;
   cardImage.alt = card.name;
   cardTitle.textContent = card.name;
-  cardElement
-    .querySelector('.card__like-button')
-    .addEventListener('click', toggleLikeCard);
-  cardElement
-    .querySelector('.card__delete-button')
-    .addEventListener('click', deleteCard);
+  cardElement.querySelector('.card__like-button').addEventListener('click', toggleLikeCard);
+  cardElement.querySelector('.card__delete-button').addEventListener('click', deleteCard);
   cardImage.addEventListener('click', () => previewImage(card.link, card.name));
 
   return cardElement;
@@ -105,7 +103,7 @@ function renderCard(card) {
 }
 
 function renderInitialCards() {
-  initialCards.forEach(function (card) {
+  initialCards.forEach((card) => {
     renderCard(card);
   });
 }
@@ -134,11 +132,11 @@ cardAddButton.addEventListener('click', () => {
   openPopup(popupAddCard);
 });
 
-popups.forEach(popup => {
-  popup.addEventListener('mousedown', event => {
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (event) => {
     if (
-      event.target.classList.contains('popup__close-button') ||
-      event.target.classList.contains('popup_opened')
+      event.target.classList.contains('popup__close-button')
+      || event.target.classList.contains('popup_opened')
     ) {
       closePopup(popup);
     }

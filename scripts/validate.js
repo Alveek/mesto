@@ -1,9 +1,10 @@
+/* eslint-disable no-param-reassign */
 export const validationConfig = {
   formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__button',
   inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
+  errorClass: 'form__input-error_active',
 };
 
 const showInputError = (formElement, inputElement, errorMessage, config) => {
@@ -17,7 +18,7 @@ export const hideInputError = (formElement, inputElement, config) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(config.inputErrorClass);
   errorElement.classList.remove(config.errorClass);
-  errorElement.textContent = "";
+  errorElement.textContent = '';
 };
 
 function checkInputValidity(formElement, inputElement, config) {
@@ -29,9 +30,7 @@ function checkInputValidity(formElement, inputElement, config) {
 }
 
 function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  })
+  return inputList.some((inputElement) => !inputElement.validity.valid);
 }
 
 function toggleButtonState(inputList, buttonElement) {
@@ -52,13 +51,13 @@ function setEventListeners(formElement, config) {
     inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement, config);
       toggleButtonState(inputList, buttonElement);
-    })
-  })
+    });
+  });
 }
 
 export function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach(formElement => {
-    setEventListeners(formElement, config)
+  formList.forEach((formElement) => {
+    setEventListeners(formElement, config);
   });
 }
