@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 import { initialCards } from './cards-data.js';
-import { validationConfig, enableValidation, hideInputError } from './validate.js';
+// import { validationConfig, enableValidation, hideInputError } from './validate.js';
+import FormValidator from './FormValidator.js';
 
 const profileEditButton = document.querySelector('.profile__edit-button');
 const cardAddButton = document.querySelector('.profile__add-button');
@@ -29,12 +30,12 @@ window.addEventListener('DOMContentLoaded', () => {
   popups.forEach((popup) => popup.classList.remove('popup_hidden'));
 });
 
-function resetErrors(form) {
-  const inputs = form.querySelectorAll('.form__input');
-  inputs.forEach((input) => {
-    hideInputError(form, input, validationConfig);
-  });
-}
+// function resetErrors(form) {
+//   const inputs = form.querySelectorAll('.form__input');
+//   inputs.forEach((input) => {
+//     hideInputError(form, input, validationConfig);
+//   });
+// }
 
 function closePopupByEsc(event) {
   if (event.key === 'Escape') {
@@ -146,4 +147,6 @@ popups.forEach((popup) => {
 formProfile.addEventListener('submit', handleChangeProfileInfo);
 formNewCard.addEventListener('submit', handleAddNewCard);
 
-enableValidation(validationConfig);
+
+const formValidator = new FormValidator();
+formValidator.enableValidation();
