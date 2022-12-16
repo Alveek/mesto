@@ -2,6 +2,7 @@
 import { initialCards } from "./cards-data.js";
 import { validationConfig } from "./config.js";
 import FormValidator from "./FormValidator.js";
+import Card from "./Card.js";
 // import { validationConfig, enableValidation, hideInputError } from './validate.js';
 
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -68,15 +69,15 @@ function handleChangeProfileInfo(event) {
   closePopup(popupEditProfile);
 }
 
-function deleteCard(event) {
+export function deleteCard(event) {
   event.target.closest(".card__item").remove();
 }
 
-function toggleLikeCard(event) {
+export function toggleLikeCard(event) {
   event.target.classList.toggle("card__like-button_liked");
 }
 
-function previewImage(cardImage, cardTitle) {
+export function previewImage(cardImage, cardTitle) {
   popupImage.src = cardImage;
   popupImageText.textContent = cardTitle;
   popupImage.alt = cardTitle;
@@ -84,28 +85,9 @@ function previewImage(cardImage, cardTitle) {
   openPopup(popupImagePreview);
 }
 
-function createCard(card) {
-  const cardElement = cardTemplate.querySelector(".card__item").cloneNode(true);
-  const cardImage = cardElement.querySelector(".card__image");
-  const cardTitle = cardElement.querySelector(".card__title");
-
-  cardImage.src = card.link;
-  cardImage.alt = card.name;
-  cardTitle.textContent = card.name;
-  cardElement
-    .querySelector(".card__like-button")
-    .addEventListener("click", toggleLikeCard);
-  cardElement
-    .querySelector(".card__delete-button")
-    .addEventListener("click", deleteCard);
-  cardImage.addEventListener("click", () => previewImage(card.link, card.name));
-
-  return cardElement;
-}
-
 function renderCard(card) {
-  const newCard = createCard(card);
-  cardsContainer.prepend(newCard);
+  const newCard = new Card(card, "#card-template");
+  cardsContainer.prepend(newCard.generateCard());
 }
 
 function renderInitialCards() {
