@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 import { initialCards } from './cards-data.js';
+import { validationConfig } from './config.js';
 // import { validationConfig, enableValidation, hideInputError } from './validate.js';
 import FormValidator from './FormValidator.js';
 
