@@ -3,16 +3,12 @@ import { initialCards } from "./cards-data.js";
 import { validationConfig } from "./config.js";
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
-// import { validationConfig, enableValidation, hideInputError } from './validate.js';
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const cardAddButton = document.querySelector(".profile__add-button");
 const popups = document.querySelectorAll(".popup");
 const popupEditProfile = document.querySelector(".popup_type_profile-info");
 const popupAddCard = document.querySelector(".popup_type_add-card");
-const popupImagePreview = document.querySelector(".popup_type_image-preview");
-const popupImage = document.querySelector(".popup__image");
-const popupImageText = document.querySelector(".popup__image-description");
 const profileNameText = document.querySelector(".profile__name");
 const profileJobText = document.querySelector(".profile__job");
 const profileNameInput = document.querySelector(".form__input_user_name");
@@ -24,7 +20,16 @@ const formNewCardButton = formNewCard.querySelector(".form__button");
 const cardsContainer = document.querySelector(".card__items");
 const cardName = document.querySelector(".form__input_card_name");
 const cardLink = document.querySelector(".form__input_card_link");
-const cardTemplate = document.querySelector("#card-template").content;
+export const popupImagePreview = document.querySelector(
+  ".popup_type_image-preview"
+);
+export const popupImage = document.querySelector(".popup__image");
+export const popupImageText = document.querySelector(
+  ".popup__image-description"
+);
+
+const profileFormValidator = new FormValidator(formProfile, validationConfig);
+const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 
 // Чтобы при открытии страницы не мелькали попапы
 // после загрузки содержимого у попапов удаляется класс скрывающий их
@@ -46,7 +51,7 @@ function closePopupByEsc(event) {
   }
 }
 
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closePopupByEsc);
 }
@@ -67,22 +72,6 @@ function handleChangeProfileInfo(event) {
   profileJobText.textContent = profileJobInput.value;
 
   closePopup(popupEditProfile);
-}
-
-export function deleteCard(event) {
-  event.target.closest(".card__item").remove();
-}
-
-export function toggleLikeCard(event) {
-  event.target.classList.toggle("card__like-button_liked");
-}
-
-export function previewImage(cardImage, cardTitle) {
-  popupImage.src = cardImage;
-  popupImageText.textContent = cardTitle;
-  popupImage.alt = cardTitle;
-
-  openPopup(popupImagePreview);
 }
 
 function renderCard(card) {
@@ -134,7 +123,5 @@ popups.forEach((popup) => {
 formProfile.addEventListener("submit", handleChangeProfileInfo);
 formNewCard.addEventListener("submit", handleAddNewCard);
 
-const profileFormValidator = new FormValidator(formProfile, validationConfig);
-const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 profileFormValidator.enableValidation();
 cardFormValidator.enableValidation();

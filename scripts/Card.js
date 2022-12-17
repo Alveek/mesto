@@ -1,4 +1,9 @@
-import { toggleLikeCard, deleteCard, previewImage } from "./index.js";
+import {
+  openPopup,
+  popupImage,
+  popupImagePreview,
+  popupImageText,
+} from "./index.js";
 
 export default class Card {
   constructor(data, templateSelector) {
@@ -15,17 +20,29 @@ export default class Card {
 
     return cardElement;
   }
+  _deleteCard(event) {
+    event.target.closest(".card__item").remove();
+  }
+
+  _toggleLikeCard(event) {
+    event.target.classList.toggle("card__like-button_liked");
+  }
+  _previewImage() {
+    popupImage.src = this._cardLink;
+    popupImageText.textContent = this._cardName;
+    popupImage.alt = this._cardName;
+
+    openPopup(popupImagePreview);
+  }
 
   _setEventListeners(element, cardImage) {
     this._element
       .querySelector(".card__like-button")
-      .addEventListener("click", toggleLikeCard);
+      .addEventListener("click", this._toggleLikeCard);
     this._element
       .querySelector(".card__delete-button")
-      .addEventListener("click", deleteCard);
-    cardImage.addEventListener("click", () =>
-      previewImage(this._cardLink, this._cardName)
-    );
+      .addEventListener("click", this._deleteCard);
+    cardImage.addEventListener("click", () => this._previewImage());
   }
 
   generateCard() {
