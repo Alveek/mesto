@@ -37,12 +37,12 @@ window.addEventListener("DOMContentLoaded", () => {
   popups.forEach((popup) => popup.classList.remove("popup_hidden"));
 });
 
-// function resetErrors(form) {
-//   const inputs = form.querySelectorAll('.form__input');
-//   inputs.forEach((input) => {
-//     hideInputError(form, input, validationConfig);
-//   });
-// }
+function resetErrors(form, validator) {
+  const inputs = form.querySelectorAll(".form__input");
+  inputs.forEach((input) => {
+    validator.hideInputError(input);
+  });
+}
 
 function closePopupByEsc(event) {
   if (event.key === "Escape") {
@@ -98,14 +98,14 @@ function handleAddNewCard(event) {
 profileEditButton.addEventListener("click", () => {
   addProfileDataToForm();
   formProfileButton.disabled = false;
-  // resetErrors(formProfile);
+  resetErrors(formProfile, profileFormValidator);
   openPopup(popupEditProfile);
 });
 
 cardAddButton.addEventListener("click", () => {
   formNewCardButton.disabled = true;
   formNewCard.reset();
-  // resetErrors(formNewCard);
+  resetErrors(formNewCard, cardFormValidator);
   openPopup(popupAddCard);
 });
 

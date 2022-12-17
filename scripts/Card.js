@@ -13,13 +13,14 @@ export default class Card {
   }
 
   _getTemplate() {
-    const cardElement = document
+    this._cardElement = document
       .querySelector(this._templateSelector)
       .content.querySelector(".card__item")
       .cloneNode(true);
 
-    return cardElement;
+    return this._cardElement;
   }
+
   _deleteCard(event) {
     event.target.closest(".card__item").remove();
   }
@@ -27,6 +28,7 @@ export default class Card {
   _toggleLikeCard(event) {
     event.target.classList.toggle("card__like-button_liked");
   }
+
   _previewImage() {
     popupImage.src = this._cardLink;
     popupImageText.textContent = this._cardName;
@@ -35,26 +37,26 @@ export default class Card {
     openPopup(popupImagePreview);
   }
 
-  _setEventListeners(element, cardImage) {
+  _setEventListeners() {
     this._element
       .querySelector(".card__like-button")
       .addEventListener("click", this._toggleLikeCard);
     this._element
       .querySelector(".card__delete-button")
       .addEventListener("click", this._deleteCard);
-    cardImage.addEventListener("click", () => this._previewImage());
+    this._cardImage.addEventListener("click", () => this._previewImage());
   }
 
   generateCard() {
     this._element = this._getTemplate();
-    const cardImage = this._element.querySelector(".card__image");
-    const cardTitle = this._element.querySelector(".card__title");
+    this._cardImage = this._element.querySelector(".card__image");
+    this._cardTitle = this._element.querySelector(".card__title");
 
-    cardImage.src = this._cardLink;
-    cardImage.alt = this._cardName;
-    cardTitle.textContent = this._cardName;
+    this._cardImage.src = this._cardLink;
+    this._cardImage.alt = this._cardName;
+    this._cardTitle.textContent = this._cardName;
 
-    this._setEventListeners(this._element, cardImage);
+    this._setEventListeners();
 
     return this._element;
   }
