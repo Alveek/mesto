@@ -15,12 +15,13 @@ import {
   profileNameInput,
   profileJobInput,
   formProfile,
-  formProfileButton,
   formNewCard,
-  formNewCardButton,
   cardsContainer,
   cardName,
   cardLink,
+  popupImage,
+  popupImagePreview,
+  popupImageText,
 } from "./constants.js";
 
 const profileFormValidator = new FormValidator(formProfile, validationConfig);
@@ -32,7 +33,7 @@ window.addEventListener("DOMContentLoaded", () => {
   popups.forEach((popup) => popup.classList.remove("popup_hidden"));
 });
 
-export function openPopup(popup) {
+function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closePopupByEsc);
 }
@@ -49,6 +50,14 @@ function closePopup(popup) {
   document.removeEventListener("keydown", closePopupByEsc);
 }
 
+function previewImage(name, link) {
+  popupImage.src = link;
+  popupImageText.textContent = name;
+  popupImage.alt = name;
+
+  openPopup(popupImagePreview);
+}
+
 function addProfileDataToForm() {
   profileNameInput.value = profileNameText.textContent;
   profileJobInput.value = profileJobText.textContent;
@@ -63,7 +72,7 @@ function handleChangeProfileInfo(event) {
 }
 
 function renderCard(card) {
-  const newCard = new Card(card, "#card-template");
+  const newCard = new Card(card, "#card-template", previewImage);
   cardsContainer.prepend(newCard.generateCard());
 }
 
@@ -85,17 +94,13 @@ function handleAddNewCard(event) {
 
 profileEditButton.addEventListener("click", () => {
   addProfileDataToForm();
-  // formProfileButton.disabled = false;
-  profileFormValidator._enableButton();
-  profileFormValidator.resetErrors();
+  profileFormValidator.resetValidation();
   openPopup(popupEditProfile);
 });
 
 cardAddButton.addEventListener("click", () => {
-  // formNewCardButton.disabled = true;
-  cardFormValidator._disableButton();
   formNewCard.reset();
-  cardFormValidator.resetErrors();
+  cardFormValidator.resetValidation();
   openPopup(popupAddCard);
 });
 

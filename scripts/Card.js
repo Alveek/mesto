@@ -1,13 +1,10 @@
-import { popupImage, popupImagePreview, popupImageText } from "./constants.js";
-import { openPopup } from "./index.js";
-
 export default class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, previewImage) {
     this._cardName = data.name;
     this._cardLink = data.link;
     this._templateSelector = templateSelector;
+    this._previewImage = previewImage;
   }
-
   _getTemplate() {
     this._cardElement = document.querySelector(this._templateSelector).content.querySelector(".card__item").cloneNode(true);
 
@@ -15,7 +12,6 @@ export default class Card {
   }
 
   _deleteCard() {
-    // this._element.target.closest(".card__item").remove();
     this._element.remove();
     this._element = null;
   }
@@ -24,18 +20,10 @@ export default class Card {
     this.classList.toggle("card__like-button_liked");
   }
 
-  _previewImage() {
-    popupImage.src = this._cardLink;
-    popupImageText.textContent = this._cardName;
-    popupImage.alt = this._cardName;
-
-    openPopup(popupImagePreview);
-  }
-
   _setEventListeners() {
     this._element.querySelector(".card__like-button").addEventListener("click", this._toggleLikeCard);
     this._element.querySelector(".card__delete-button").addEventListener("click", () => this._deleteCard());
-    this._cardImage.addEventListener("click", () => this._previewImage());
+    this._cardImage.addEventListener("click", () => this._previewImage(this._cardName, this._cardLink));
   }
 
   generateCard() {
