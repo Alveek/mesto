@@ -1,8 +1,8 @@
 /* eslint-disable import/extensions */
-import { initialCards } from "./cards-data.js";
-import { validationConfig } from "./config.js";
-import FormValidator from "./FormValidator.js";
-import Card from "./Card.js";
+import { initialCards } from "../utils/cards-data.js";
+import { validationConfig } from "../utils/config.js";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
 
 import {
   profileEditButton,
@@ -22,7 +22,7 @@ import {
   popupImage,
   popupImagePreview,
   popupImageText,
-} from "./constants.js";
+} from "../utils/constants.js";
 
 const profileFormValidator = new FormValidator(formProfile, validationConfig);
 const cardFormValidator = new FormValidator(formNewCard, validationConfig);
