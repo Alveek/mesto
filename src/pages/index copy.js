@@ -73,35 +73,26 @@ function handleChangeProfileInfo(event) {
 }
 
 // -------------RENDERING CARDS---------------------------------
-const renderCard = new Section(
-  {
-    data: initialCards,
-    renderer: (card) => {
-      const newCard = new Card(card, "#card-template", previewImage);
-      const newCardElement = newCard.generateCard();
-      console.log(newCard.generateCard());
-      // renderCard.setItem(newCardElement);
-    },
-  },
-  ".card-items"
-);
+function renderCard(card) {
+  const newCard = new Card(card, "#card-template", previewImage);
+  cardsContainer.prepend(newCard.generateCard());
+}
 
-renderCard.renderItems();
-// function renderInitialCards() {
-//   initialCards.forEach((card) => {
-//     renderCard(card);
-//   });
-// }
+function renderInitialCards() {
+  initialCards.forEach((card) => {
+    renderCard(card);
+  });
+}
 
-// renderInitialCards();
+renderInitialCards();
 
-// function handleAddNewCard(event) {
-//   event.preventDefault();
+function handleAddNewCard(event) {
+  event.preventDefault();
 
-//   const card = { name: cardName.value, link: cardLink.value };
-//   renderCard(card);
-//   closePopup(popupAddCard);
-// }
+  const card = { name: cardName.value, link: cardLink.value };
+  renderCard(card);
+  closePopup(popupAddCard);
+}
 
 // -------------RENDERING CARDS---------------------------------
 
@@ -126,7 +117,7 @@ popups.forEach((popup) => {
 });
 
 formProfile.addEventListener("submit", handleChangeProfileInfo);
-// formNewCard.addEventListener("submit", handleAddNewCard);
+formNewCard.addEventListener("submit", handleAddNewCard);
 
 profileFormValidator.enableValidation();
 cardFormValidator.enableValidation();
