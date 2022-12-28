@@ -1,9 +1,9 @@
 /* eslint-disable import/extensions */
-import { initialCards } from "../utils/cards-data.js";
-import { validationConfig } from "../utils/config.js";
-import FormValidator from "../components/FormValidator.js";
-import Card from "../components/Card.js";
-import Section from "../components/Section.js";
+import {initialCards} from '../utils/cards-data.js';
+import {validationConfig} from '../utils/config.js';
+import FormValidator from '../components/FormValidator.js';
+import Card from '../components/Card.js';
+import Section from '../components/Section.js';
 
 import {
   profileEditButton,
@@ -18,37 +18,37 @@ import {
   formProfile,
   formNewCard,
   cardsContainer,
-  cardName,
-  cardLink,
   popupImage,
   popupImagePreview,
   popupImageText,
-} from "../utils/constants.js";
+  cardName,
+  cardLink
+} from '../utils/constants.js';
 
 const profileFormValidator = new FormValidator(formProfile, validationConfig);
 const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 
 // Чтобы при открытии страницы не мелькали попапы
 // после загрузки содержимого у попапов удаляется класс скрывающий их
-window.addEventListener("DOMContentLoaded", () => {
-  popups.forEach((popup) => popup.classList.remove("popup_hidden"));
+window.addEventListener('DOMContentLoaded', () => {
+  popups.forEach((popup) => popup.classList.remove('popup_hidden'));
 });
 
 function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closePopupByEsc);
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closePopupByEsc(event) {
-  if (event.key === "Escape") {
-    const currentOpenedPopup = document.querySelector(".popup_opened");
+  if (event.key === 'Escape') {
+    const currentOpenedPopup = document.querySelector('.popup_opened');
     closePopup(currentOpenedPopup);
   }
 }
 
 function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupByEsc);
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 
 function previewImage(name, link) {
@@ -72,60 +72,57 @@ function handleChangeProfileInfo(event) {
   closePopup(popupEditProfile);
 }
 
+function createNewCard(card) {
+  const newCard = new Card(card, '#card-template', previewImage);
+  const newCardElement = newCard.generateCard();
+  renderCard.addItem(newCardElement);
+}
+
 // -------------RENDERING CARDS---------------------------------
 const renderCard = new Section(
   {
     data: initialCards,
     renderer: (card) => {
-      const newCard = new Card(card, "#card-template", previewImage);
-      const newCardElement = newCard.generateCard();
-      renderCard.setItem(newCardElement);
+      createNewCard(card);
     },
   },
-  cardsContainer
+  cardsContainer,
 );
 
 renderCard.renderItems();
-// function renderInitialCards() {
-//   initialCards.forEach((card) => {
-//     renderCard(card);
-//   });
-// }
 
-// renderInitialCards();
+function handleAddNewCard(event) {
+  event.preventDefault();
 
-// function handleAddNewCard(event) {
-//   event.preventDefault();
-
-//   const card = { name: cardName.value, link: cardLink.value };
-//   renderCard(card);
-//   closePopup(popupAddCard);
-// }
+  const card = {name: cardName.value, link: cardLink.value};
+  createNewCard(card);
+  closePopup(popupAddCard);
+}
 
 // -------------RENDERING CARDS---------------------------------
 
-profileEditButton.addEventListener("click", () => {
+profileEditButton.addEventListener('click', () => {
   addProfileDataToForm();
   profileFormValidator.resetValidation();
   openPopup(popupEditProfile);
 });
 
-cardAddButton.addEventListener("click", () => {
+cardAddButton.addEventListener('click', () => {
   formNewCard.reset();
   cardFormValidator.resetValidation();
   openPopup(popupAddCard);
 });
 
 popups.forEach((popup) => {
-  popup.addEventListener("mousedown", (event) => {
-    if (event.target.classList.contains("popup__close-button") || event.target.classList.contains("popup_opened")) {
+  popup.addEventListener('mousedown', (event) => {
+    if (event.target.classList.contains('popup__close-button') || event.target.classList.contains('popup_opened')) {
       closePopup(popup);
     }
   });
 });
 
-formProfile.addEventListener("submit", handleChangeProfileInfo);
-// formNewCard.addEventListener("submit", handleAddNewCard);
+formProfile.addEventListener('submit', handleChangeProfileInfo);
+formNewCard.addEventListener('submit', handleAddNewCard);
 
 profileFormValidator.enableValidation();
 cardFormValidator.enableValidation();
