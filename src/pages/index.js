@@ -79,11 +79,10 @@ const renderCard = new Section(
     renderer: (card) => {
       const newCard = new Card(card, "#card-template", previewImage);
       const newCardElement = newCard.generateCard();
-      console.log(newCard.generateCard());
-      // renderCard.setItem(newCardElement);
+      renderCard.setItem(newCardElement);
     },
   },
-  ".card-items"
+  cardsContainer
 );
 
 renderCard.renderItems();
