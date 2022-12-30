@@ -1,10 +1,10 @@
-// import {popups} from "../utils/constants.js";
+import {popups} from "../utils/constants.js";
 
 export default class Popup {
   constructor({popupSelector}) {
     this._popupSelector = popupSelector;
     this._handleEscClose = this._handleEscClose.bind(this);
-    console.log(popupSelector);
+    // console.log(popupSelector);
   }
 
   open() {
@@ -25,8 +25,7 @@ export default class Popup {
   }
 
   setEventListeners() {
-    console.log("hello from Popup");
-    this._popupSelector.forEach((popup) => {
+    popups.forEach((popup) => {
       popup.addEventListener("mousedown", (event) => {
         this._popupSelector = popup;
         if (event.target.classList.contains("popup__close-button") || event.target.classList.contains("popup_opened")) {

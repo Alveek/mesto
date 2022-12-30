@@ -94,8 +94,8 @@ cardAddButton.addEventListener("click", () => {
 profileFormValidator.enableValidation();
 cardFormValidator.enableValidation();
 
-const popupElements = new Popup({popupSelector: popups});
-popupElements.setEventListeners();
+// const popupElements = new Popup({popupSelector: popups});
+// popupElements.setEventListeners();
 
-// profileFormPopup.setEventListeners();
-// newCardFormPopup.setEventListeners();
+profileFormPopup.setEventListeners();
+newCardFormPopup.setEventListeners();
