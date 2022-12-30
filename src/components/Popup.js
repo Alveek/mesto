@@ -1,7 +1,10 @@
+// import {popups} from "../utils/constants.js";
+
 export default class Popup {
-  constructor(popupSelector) {
+  constructor({popupSelector}) {
     this._popupSelector = popupSelector;
     this._handleEscClose = this._handleEscClose.bind(this);
+    console.log(popupSelector);
   }
 
   open() {
@@ -22,6 +25,7 @@ export default class Popup {
   }
 
   setEventListeners() {
+    console.log("hello from Popup");
     this._popupSelector.forEach((popup) => {
       popup.addEventListener("mousedown", (event) => {
         this._popupSelector = popup;
