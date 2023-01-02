@@ -1,37 +1,35 @@
-import {popups} from "../utils/constants.js";
+import {popups} from '../utils/constants.js';
 
 export default class Popup {
   constructor({popupSelector}) {
     this._popupSelector = popupSelector;
     this._handleEscClose = this._handleEscClose.bind(this);
-    // console.log(popupSelector);
+    // this.close = this.close.bind(this);
   }
 
   open() {
-    this._popupSelector.classList.add("popup_opened");
-    document.addEventListener("keydown", this._handleEscClose);
+    this._popupSelector.classList.add('popup_opened');
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   close() {
-    this._popupSelector.classList.remove("popup_opened");
-    document.removeEventListener("keydown", this._handleEscClose);
+    console.log('from close ', this);
+    this._popupSelector.classList.remove('popup_opened');
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 
   _handleEscClose(event) {
-    if (event.key === "Escape") {
-      this._popupSelector = document.querySelector(".popup_opened");
+    if (event.key === 'Escape') {
       this.close();
     }
   }
 
   setEventListeners() {
-    popups.forEach((popup) => {
-      popup.addEventListener("mousedown", (event) => {
-        this._popupSelector = popup;
-        if (event.target.classList.contains("popup__close-button") || event.target.classList.contains("popup_opened")) {
-          this.close();
-        }
-      });
+    this._popupSelector.addEventListener('mousedown', (event) => {
+      if (event.target.classList.contains('popup__close-button') || event.target.classList.contains('popup_opened')) {
+        console.log('from listener ', this);
+        this.close();
+      }
     });
   }
 }

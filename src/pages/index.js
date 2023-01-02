@@ -1,13 +1,13 @@
 /* eslint-disable import/extensions */
-import {initialCards} from "../utils/cards-data.js";
-import {validationConfig} from "../utils/config.js";
-import FormValidator from "../components/FormValidator.js";
-import Card from "../components/Card.js";
-import Section from "../components/Section.js";
-import Popup from "../components/Popup.js";
-import PopupWithImage from "../components/PopupWithImage.js";
-import UserInfo from "../components/UserInfo.js";
-import PopupWithForm from "../components/PopupWithForm.js";
+import {initialCards} from '../utils/cards-data.js';
+import {validationConfig} from '../utils/config.js';
+import FormValidator from '../components/FormValidator.js';
+import Card from '../components/Card.js';
+import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import UserInfo from '../components/UserInfo.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 
 import {
   profileEditButton,
@@ -27,17 +27,16 @@ import {
   popupImageText,
   cardName,
   cardLink
-} from "../utils/constants.js";
+} from '../utils/constants.js';
 
 const profileFormValidator = new FormValidator(formProfile, validationConfig);
 const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 
 // Чтобы при открытии страницы не мелькали попапы
 // после загрузки содержимого у попапов удаляется класс скрывающий их
-window.addEventListener("DOMContentLoaded", () => {
-  popups.forEach((popup) => popup.classList.remove("popup_hidden"));
+window.addEventListener('DOMContentLoaded', () => {
+  popups.forEach((popup) => popup.classList.remove('popup_hidden'));
 });
-
 
 const userInfo = new UserInfo(profileNameText, profileJobText);
 
@@ -46,20 +45,24 @@ function addProfileDataToForm() {
   profileJobInput.value = userInfo.getUserInfo().userJob;
 }
 
+const popupWithImage = new PopupWithImage({popupSelector: popupImagePreview});
+popupWithImage.setEventListeners();
+
 function handleCardClick(name, link) {
-  const popupWithImage = new PopupWithImage({popupSelector: popupImagePreview});
   popupWithImage.open(name, link);
 }
 
 function createNewCard(card) {
-  const newCard = new Card(card, "#card-template", handleCardClick);
+  const newCard = new Card(card, '#card-template', handleCardClick);
   const newCardElement = newCard.generateCard();
+
   renderCard.addItem(newCardElement);
 }
 
 const renderCard = new Section({
   data: initialCards, renderer: (card) => {
     createNewCard(card);
+
   },
 }, cardsContainer,);
 
@@ -95,7 +98,11 @@ profileFormValidator.enableValidation();
 cardFormValidator.enableValidation();
 
 // const popupElements = new Popup({popupSelector: popups});
-// popupElements.setEventListeners();
+
+// popups.forEach(popupElement => {
+//   const popup = new Popup({popupSelector: popupElement});
+//   popup.setEventListeners();
+// });
 
 profileFormPopup.setEventListeners();
 newCardFormPopup.setEventListeners();
