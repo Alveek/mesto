@@ -1,13 +1,13 @@
-import "./pages/index.css";
+import "./index.css";
 
-import { initialCards } from "./utils/cards-data.js";
-import { validationConfig } from "./utils/config.js";
-import FormValidator from "./components/FormValidator.js";
-import Card from "./components/Card.js";
-import Section from "./components/Section.js";
-import PopupWithImage from "./components/PopupWithImage.js";
-import UserInfo from "./components/UserInfo.js";
-import PopupWithForm from "./components/PopupWithForm.js";
+import { initialCards } from "../utils/cards-data.js";
+import { validationConfig } from "../utils/config.js";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 import {
   profileEditButton,
@@ -17,13 +17,11 @@ import {
   popupAddCard,
   profileNameText,
   profileJobText,
-  profileNameInput,
-  profileJobInput,
   formProfile,
   formNewCard,
   cardsContainer,
   popupImagePreview,
-} from "./utils/constants.js";
+} from "../utils/constants.js";
 
 // Чтобы при открытии страницы не мелькали попапы
 // после загрузки содержимого у попапов удаляется класс скрывающий их
@@ -40,7 +38,7 @@ const renderCard = new Section(
   {
     data: initialCards,
     renderer: (card) => {
-      createNewCard(card);
+      renderCard.addItem(createCard(card));
     },
   },
   cardsContainer
@@ -58,29 +56,22 @@ const newCardFormPopup = new PopupWithForm({
   popupSelector: popupAddCard,
   handleSubmitForm: (formData) => {
     const card = { name: formData.cardName, link: formData.cardLink };
-    createNewCard(card);
+    renderCard.addItem(createCard(card));
     newCardFormPopup.close();
   },
 });
-
-function addProfileDataToForm() {
-  profileNameInput.value = userInfo.getUserInfo().userName;
-  profileJobInput.value = userInfo.getUserInfo().userJob;
-}
 
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
 
-function createNewCard(card) {
+function createCard(card) {
   const newCard = new Card(card, "#card-template", handleCardClick);
-  const newCardElement = newCard.generateCard();
-
-  renderCard.addItem(newCardElement);
+  return newCard.generateCard();
 }
 
 profileEditButton.addEventListener("click", () => {
-  addProfileDataToForm();
+  profileFormPopup.setInputValues(userInfo.getUserInfo());
   profileFormValidator.resetValidation();
   profileFormPopup.open();
 });
