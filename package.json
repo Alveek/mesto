@@ -40,6 +40,6 @@
   },
   "dependencies": {
     "core-js": "^2.6.12",
-    "live-server": "^1.1.0"
+    "live-server": "^1.2.2"
   }
 }
