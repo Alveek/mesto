@@ -13,14 +13,11 @@ import {
   profileEditButton,
   cardAddButton,
   popups,
-  popupEditProfile,
-  popupAddCard,
   profileNameText,
   profileJobText,
   formProfile,
   formNewCard,
   cardsContainer,
-  popupImagePreview,
 } from "../utils/constants.js";
 
 // Чтобы при открытии страницы не мелькали попапы
@@ -32,7 +29,7 @@ window.addEventListener("DOMContentLoaded", () => {
 const profileFormValidator = new FormValidator(formProfile, validationConfig);
 const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 const userInfo = new UserInfo(profileNameText, profileJobText);
-const popupWithImage = new PopupWithImage({ popupSelector: popupImagePreview });
+const popupWithImage = new PopupWithImage({ popupSelector: ".popup_type_image-preview" });
 
 const renderCard = new Section(
   {
@@ -45,7 +42,7 @@ const renderCard = new Section(
 );
 
 const profileFormPopup = new PopupWithForm({
-  popupSelector: popupEditProfile,
+  popupSelector: ".popup_type_profile-info",
   handleSubmitForm: (formData) => {
     userInfo.setUserInfo(formData);
     profileFormPopup.close();
@@ -53,7 +50,7 @@ const profileFormPopup = new PopupWithForm({
 });
 
 const newCardFormPopup = new PopupWithForm({
-  popupSelector: popupAddCard,
+  popupSelector: ".popup_type_add-card",
   handleSubmitForm: (formData) => {
     const card = { name: formData.cardName, link: formData.cardLink };
     renderCard.addItem(createCard(card));
