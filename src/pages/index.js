@@ -1,7 +1,8 @@
 import "./index.css";
 
-import { initialCards } from "../utils/cards-data.js";
+// import { initialCards } from "../utils/cards-data.js";
 import { validationConfig } from "../utils/config.js";
+import Api from "../components/Api.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
@@ -31,9 +32,17 @@ const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 const userInfo = new UserInfo(profileNameText, profileJobText);
 const popupWithImage = new PopupWithImage({ popupSelector: ".popup_type_image-preview" });
 
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-58",
+  headers: {
+    authorization: "2cf1ae4c-ba37-45f7-aec7-ad1edf235188",
+    "Content-Type": "application/json",
+  },
+});
+
 const renderCard = new Section(
   {
-    data: initialCards,
+    data: api.getInitialCards(),
     renderer: (card) => {
       renderCard.addItem(createCard(card));
     },
@@ -48,6 +57,8 @@ const profileFormPopup = new PopupWithForm({
     profileFormPopup.close();
   },
 });
+
+api.getUserInfo().then((res) => console.log(res));
 
 const newCardFormPopup = new PopupWithForm({
   popupSelector: ".popup_type_add-card",
