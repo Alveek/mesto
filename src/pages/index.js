@@ -1,7 +1,7 @@
 import "./index.css";
 
 // import { initialCards } from "../utils/cards-data.js";
-import { validationConfig } from "../utils/config.js";
+import {validationConfig} from "../utils/config.js";
 import Api from "../components/Api.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
@@ -19,6 +19,7 @@ import {
   formProfile,
   formNewCard,
   cardsContainer,
+  profileAvatar
 } from "../utils/constants.js";
 
 // Чтобы при открытии страницы не мелькали попапы
@@ -29,8 +30,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
 const profileFormValidator = new FormValidator(formProfile, validationConfig);
 const cardFormValidator = new FormValidator(formNewCard, validationConfig);
-const userInfo = new UserInfo(profileNameText, profileJobText);
-const popupWithImage = new PopupWithImage({ popupSelector: ".popup_type_image-preview" });
+const userInfo = new UserInfo(profileNameText, profileJobText, profileAvatar);
+const popupWithImage = new PopupWithImage({popupSelector: ".popup_type_image-preview"});
 
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-58",
@@ -39,6 +40,7 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
+
 
 const renderCard = new Section(
   {
@@ -53,18 +55,19 @@ const renderCard = new Section(
 const profileFormPopup = new PopupWithForm({
   popupSelector: ".popup_type_profile-info",
   handleSubmitForm: (formData) => {
-    userInfo.setUserInfo(formData);
+    api.editProfile(formData).then(res => res.json()).then(data => userInfo.setUserInfo(data));
     profileFormPopup.close();
   },
 });
 
-api.getUserInfo().then((res) => console.log(res));
+api.getUserInfo().then((res) => userInfo.getUserInfo(res));
+// api.deleteCard('63d18fb0fc82a4630c7095dc')
 
 const newCardFormPopup = new PopupWithForm({
   popupSelector: ".popup_type_add-card",
   handleSubmitForm: (formData) => {
-    const card = { name: formData.cardName, link: formData.cardLink };
-    renderCard.addItem(createCard(card));
+    const card = {name: formData.cardName, link: formData.cardLink};
+    api.addNewCard(card).then(res => res.json()).then(newCard => renderCard.addItem(createCard(newCard)));
     newCardFormPopup.close();
   },
 });
@@ -79,7 +82,6 @@ function createCard(card) {
 }
 
 profileEditButton.addEventListener("click", () => {
-  profileFormPopup.setInputValues(userInfo.getUserInfo());
   profileFormValidator.resetValidation();
   profileFormPopup.open();
 });
@@ -89,6 +91,7 @@ cardAddButton.addEventListener("click", () => {
   newCardFormPopup.open();
 });
 
+// api.getInitialCards().then(res => renderCard.renderItems(res));
 renderCard.renderItems();
 
 profileFormPopup.setEventListeners();
