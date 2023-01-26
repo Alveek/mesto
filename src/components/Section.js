@@ -16,11 +16,4 @@ export default class Section {
       })
     );
   }
-
-  // renderItems(data) {
-  //   data.forEach((card) => {
-  //       this._renderer(card);
-  //     }
-  //   );
-  // }
 }

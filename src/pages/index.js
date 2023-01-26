@@ -21,6 +21,7 @@ import {
   cardsContainer,
   profileAvatar
 } from "../utils/constants.js";
+import {logPlugin} from "@babel/preset-env/lib/debug";
 
 // Чтобы при открытии страницы не мелькали попапы
 // после загрузки содержимого у попапов удаляется класс скрывающий их
@@ -91,8 +92,10 @@ cardAddButton.addEventListener("click", () => {
   newCardFormPopup.open();
 });
 
-// api.getInitialCards().then(res => renderCard.renderItems(res));
-renderCard.renderItems();
+api.getUserInfo().then((data) => {
+    if (data._id) renderCard.renderItems();
+  }
+);
 
 profileFormPopup.setEventListeners();
 newCardFormPopup.setEventListeners();

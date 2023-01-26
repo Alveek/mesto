@@ -4,16 +4,26 @@ export default class Api {
     this.headers = options.headers;
   }
 
-  getInitialCards() {
-    return fetch(`${this.baseUrl}/cards`, {headers: this.headers})
-      .then((res) => res.json())
-      .then((data) => data.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt)));
-  }
-
   getUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, {headers: this.headers})
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
       .then((data) => data);
+  }
+
+  getInitialCards() {
+    return fetch(`${this.baseUrl}/cards`, {headers: this.headers})
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then((data) => data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)));
   }
 
   editProfile(newData) {
