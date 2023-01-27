@@ -7,3 +7,4 @@ export const formProfile = document.querySelector(".form_type_profile");
 export const formNewCard = document.querySelector(".form_type_new-card");
 export const cardsContainer = document.querySelector(".card__items");
 export const profileAvatar = document.querySelector(".profile__avatar");
+export const cardDeleteButton = document.querySelector(".card__delete-button")

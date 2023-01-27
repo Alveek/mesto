@@ -2,7 +2,6 @@ export default class Api {
   constructor({url, headers}) {
     this._url = url;
     this._headers = headers;
-    console.log(this._url, this._headers)
   }
 
   getUserInfo() {

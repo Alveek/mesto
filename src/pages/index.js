@@ -9,6 +9,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation";
 
 import {
   profileEditButton,
@@ -22,6 +23,7 @@ import {
   profileAvatar
 } from "../utils/constants.js";
 import {logPlugin} from "@babel/preset-env/lib/debug";
+
 
 // Чтобы при открытии страницы не мелькали попапы
 // после загрузки содержимого у попапов удаляется класс скрывающий их
@@ -40,7 +42,7 @@ const apiOptions = {
     authorization: "2cf1ae4c-ba37-45f7-aec7-ad1edf235188",
     "Content-Type": "application/json",
   },
-}
+};
 
 const api = new Api(apiOptions);
 
@@ -62,8 +64,14 @@ const profileFormPopup = new PopupWithForm({
   },
 });
 
+const popupWithConfirmation = new PopupWithConfirmation({
+  popupSelector: ".popup_type_delete-card", handleSubmitForm: (id, card) => {
+    api.deleteCard(id).then(deleteCardFromDOM(card));
+    popupWithConfirmation.close();
+  }
+});
+
 api.getUserInfo().then((res) => userInfo.getUserInfo(res));
-// api.deleteCard('63d18fb0fc82a4630c7095dc')
 
 const newCardFormPopup = new PopupWithForm({
   popupSelector: ".popup_type_add-card",
@@ -74,12 +82,21 @@ const newCardFormPopup = new PopupWithForm({
   },
 });
 
+function deleteCardFromDOM(card) {
+  card.remove();
+  card = null;
+}
+
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
 
+function handleDeleteCardClick(id, el) {
+  popupWithConfirmation.open(id, el);
+}
+
 function createCard(card) {
-  const newCard = new Card(card, "#card-template", handleCardClick);
+  const newCard = new Card(card, "#card-template", handleCardClick, handleDeleteCardClick);
   return newCard.generateCard();
 }
 
@@ -101,6 +118,7 @@ api.getUserInfo().then((data) => {
 profileFormPopup.setEventListeners();
 newCardFormPopup.setEventListeners();
 popupWithImage.setEventListeners();
+popupWithConfirmation.setEventListeners();
 
 profileFormValidator.enableValidation();
 cardFormValidator.enableValidation();
