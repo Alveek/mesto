@@ -34,14 +34,15 @@ const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 const userInfo = new UserInfo(profileNameText, profileJobText, profileAvatar);
 const popupWithImage = new PopupWithImage({popupSelector: ".popup_type_image-preview"});
 
-const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-58",
+const apiOptions = {
+  url: "https://mesto.nomoreparties.co/v1/cohort-58",
   headers: {
     authorization: "2cf1ae4c-ba37-45f7-aec7-ad1edf235188",
     "Content-Type": "application/json",
   },
-});
+}
 
+const api = new Api(apiOptions);
 
 const renderCard = new Section(
   {
