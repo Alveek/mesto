@@ -66,8 +66,11 @@ const profileFormPopup = new PopupWithForm({
 
 const popupWithConfirmation = new PopupWithConfirmation({
   popupSelector: ".popup_type_delete-card", handleSubmitForm: (id, card) => {
-    api.deleteCard(id).then(deleteCardFromDOM(card));
-    popupWithConfirmation.close();
+    api.deleteCard(id).then(() => {
+      card.remove();
+      card = null;
+      popupWithConfirmation.close();
+    });
   }
 });
 
@@ -81,11 +84,6 @@ const newCardFormPopup = new PopupWithForm({
     newCardFormPopup.close();
   },
 });
-
-function deleteCardFromDOM(card) {
-  card.remove();
-  card = null;
-}
 
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
