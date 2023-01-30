@@ -5,24 +5,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Место</title>
-
-  <style>
-    .profile__avatar-container {
-      position: relative;
-      border: 1px solid #fff;
-    }
-    .profile__pencil {
-      content: url("./images/icon-pencil.svg");
-      width: 20px;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-    }
-    .profile__pencil:hover {
-      display: block;
-    }
-  </style>
 </head>
 
 <body class="page">
@@ -32,12 +14,9 @@
 
 <main class="content">
   <section class="profile">
-
     <div class="profile__avatar-container">
-      <img class="profile__pencil" src="<%=require('./images/icon-pencil.svg')%>" alt="" width="20">
-      <button type="button" class="profile__updavatar-button ">
-        <img src="<%=require('./images/avatar.jpeg')%>" alt="Аватарка" class="profile__avatar opacity"/>
-      </button>
+      <img src="" alt="Аватарка" class="profile__avatar"/>
+      <img class="profile__updavatar-button" src="<%=require('./images/icon-pencil.svg')%>" alt="edit-pencil" >
     </div>
 
     <div class="profile__info">
