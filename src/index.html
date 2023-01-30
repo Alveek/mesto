@@ -5,6 +5,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Место</title>
+
+  <style>
+    .profile__avatar-container {
+      position: relative;
+      border: 1px solid #fff;
+    }
+    .profile__pencil {
+      content: url("./images/icon-pencil.svg");
+      width: 20px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .profile__pencil:hover {
+      display: block;
+    }
+  </style>
 </head>
 
 <body class="page">
@@ -14,7 +32,14 @@
 
 <main class="content">
   <section class="profile">
-    <img src="" alt="Аватарка" class="profile__avatar"/>
+
+    <div class="profile__avatar-container">
+      <img class="profile__pencil" src="<%=require('./images/icon-pencil.svg')%>" alt="" width="20">
+      <button type="button" class="profile__updavatar-button ">
+        <img src="<%=require('./images/avatar.jpeg')%>" alt="Аватарка" class="profile__avatar opacity"/>
+      </button>
+    </div>
+
     <div class="profile__info">
       <h1 class="profile__name"></h1>
       <button type="button" class="profile__edit-button opacity"></button>
@@ -39,7 +64,7 @@
       <input
         class="form__input form__input_user_name"
         id="user-name-input"
-        name="userName"
+        name="name"
         type="text"
         placeholder="Ваше имя"
         autocomplete="off"
@@ -51,7 +76,7 @@
       <input
         class="form__input form__input_user_job"
         id="user-job-input"
-        name="userJob"
+        name="about"
         type="text"
         placeholder="Род деятельности"
         autocomplete="off"
@@ -98,9 +123,29 @@
   </div>
 </div>
 
+<div class="popup popup_type_update-avatar popup_hidden">
+  <div class="popup__avatar-container">
+    <h2 class="popup__title">Обновить аватар</h2>
+    <form class="form form_type_update-avatar" name="update-form" novalidate>
+      <input
+        class="form__input form__input_avatar_link"
+        id="avatar-link-input"
+        name="avatarLink"
+        type="url"
+        placeholder="Ссылка на картинку"
+        autocomplete="off"
+        required
+      />
+      <span class="form__input-error avatar-link-input-error"></span>
+      <button class="form__button" type="submit">Сохранить</button>
+    </form>
+    <button type="button" class="popup__close-button opacity" aria-label="Закрыть попап"></button>
+  </div>
+</div>
+
 <div class="popup popup_type_delete-card popup_hidden">
-  <div class="popup__container">
-    <h2 class="popup__title">Вы уверены?</h2>
+  <div class="popup__delete-container">
+    <h2 class="popup__delete-title">Вы уверены?</h2>
     <form class="form form_type_delete-card" name="delete-form">
       <button class="form__button" type="submit">Да</button>
     </form>

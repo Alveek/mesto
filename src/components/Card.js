@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, templateSelector, handleCardClick, handleDeleteCardClick) {
+  constructor(data, templateSelector, handleCardClick, handleDeleteCardClick, handleLikeCard) {
     this._cardName = data.name;
     this._cardLink = data.link;
     this._likes = data.likes;
@@ -9,6 +9,8 @@ export default class Card {
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCardClick = handleDeleteCardClick;
+    this._handleLikeCard = handleLikeCard;
+    // this._toggleLikeCard = this._toggleLikeCard.bind(this)
   }
 
   _getTemplate() {
@@ -32,10 +34,10 @@ export default class Card {
     }
   }
 
+
   _setEventListeners() {
-    this._element.querySelector('.card__like-button').addEventListener('click', this._toggleLikeCard);
-    this._deleteButton ? this._deleteButton
-      .addEventListener('click', () => this._handleDeleteCardClick(this._id, this._element)) : null;
+    this._likeButton.addEventListener('click', () => this._handleLikeCard(this._id, this._likeButton, this._cardLikeCounter));
+    this._deleteButton ? this._deleteButton.addEventListener('click', () => this._handleDeleteCardClick(this._id, this._element)) : null;
     this._cardImage.addEventListener('click', () => this._handleCardClick(this._cardName, this._cardLink));
   }
 
@@ -45,13 +47,16 @@ export default class Card {
     this._cardTitle = this._element.querySelector('.card__title');
     this._cardLikeCounter = this._element.querySelector('.card__like-counter');
     this._deleteButton = this._element.querySelector('.card__delete-button');
+    this._likeButton = this._element.querySelector('.card__like-button');
 
     this._cardImage.src = this._cardLink;
     this._cardImage.alt = this._cardName;
     this._cardTitle.textContent = this._cardName;
     this._cardLikeCounter.textContent = this._likes.length;
-    this._showDeleteButton();
+    this._likes.some(item => item._id === this._myId) ? this._likeButton.classList.add('card__like-button_liked') : null;
     this._setEventListeners();
+    this._showDeleteButton();
+
 
     return this._element;
   }
