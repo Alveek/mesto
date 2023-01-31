@@ -72,21 +72,22 @@ const renderCard = new Section({
 }, '.card__items');
 
 showLoader();
+let render = true;
+let error = '';
+
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([user, cards]) => {
-    checkResponse(user)
-      .then(user => {
-        userInfo.getUserInfo(user);
-        checkResponse(cards)
-          .then(data => data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)))
-          .then(res => {
-            renderCard.renderItems(res, user._id);
-          });
-      });
+    userInfo.getUserInfo(user);
+    cards.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    renderCard.renderItems(cards, user._id);
   })
-  .catch(err => console.log(err))
+  .catch(err => {
+    render = false;
+    loader.innerHTML = `Что-то пошло не так... (${err})`
+    console.log(err);
+  })
   .finally(() => {
-    hideLoader();
+    render ? hideLoader() : null;
   });
 
 function editProfile(user, btn) {

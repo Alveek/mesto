@@ -5,7 +5,6 @@ export default class Card {
     this._likes = data.likes;
     this._id = data._id;
     this._ownerId = data.owner._id;
-    // this._myId = '566e2a3d42321cf23bda3bad';
     this._myId = myId;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;

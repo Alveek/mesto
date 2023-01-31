@@ -1,4 +1,10 @@
 .loader {
   align-self: center;
   justify-self: center;
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  max-width: 200px;
+  text-align: center;
 }
