@@ -52,11 +52,21 @@ const renderCard = new Section({
   },
 }, '.card__items');
 
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
+
 // Карточки должны отображаться на странице только после получения id пользователя.
 api.getUserInfo()
+  .then(res => checkResponse(res))
   .then((data) => {
     if (data._id) {
       api.getInitialCards()
+        .then(res => checkResponse(res))
+        .then((data) => data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)))
         .then(res => {
           renderCard.renderItems(res);
         });
@@ -67,6 +77,7 @@ api.getUserInfo()
 function editProfile(user, btn) {
   btn.textContent = 'Сохранение...';
   return api.editProfile(user)
+    .then(res => checkResponse(res))
     .then(data => {
       userInfo.setUserInfo(data);
     })
@@ -88,13 +99,14 @@ function addNewCard(data) {
     link: data.cardLink
   };
   api.addNewCard(card)
-    .then(res => res.json())
+    .then(res => checkResponse(res))
     .then(newCard => renderCard.addItem(createCard(newCard)))
     .catch(err => console.log(err));
 }
 
 function deleteCard(cardId, card) {
   api.deleteCard(cardId)
+    .then(res => checkResponse(res))
     .then(() => {
       card.remove();
       card = null;
@@ -111,6 +123,7 @@ const popupWithConfirmation = new PopupWithConfirmation({
 });
 
 api.getUserInfo()
+  .then(res => checkResponse(res))
   .then((res) => userInfo.getUserInfo(res))
   .catch(err => console.log(err));
 
@@ -138,12 +151,12 @@ function handleLikeCard(cardId, cardLikeButton, likeCounter) {
   cardLikeButton.classList.toggle('card__like-button_liked');
   if (cardLikeButton.classList.contains('card__like-button_liked')) {
     api.likeCard(cardId)
-      .then(res => res.json())
+      .then(res => checkResponse(res))
       .then(data => updateCounter(data, likeCounter))
       .catch(err => console.log(err));
   } else {
     api.unlikeCard(cardId)
-      .then(res => res.json())
+      .then(res => checkResponse(res))
       .then(data => updateCounter(data, likeCounter))
       .catch(err => console.log(err));
   }
@@ -152,6 +165,7 @@ function handleLikeCard(cardId, cardLikeButton, likeCounter) {
 function updateAvatar(link, btn) {
   btn.textContent = 'Сохранение...';
   api.updateAvatar(link)
+    .then(res => checkResponse(res))
     .then(() => {
       userInfo.setUserAvatar(link);
     })
@@ -174,6 +188,7 @@ function createCard(card) {
 
 profileEditButton.addEventListener('click', () => {
   api.getUserInfo()
+    .then(res => checkResponse(res))
     .then(res => {
       profileFormPopup.setInputValues(res);
     })
