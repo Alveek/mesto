@@ -46,12 +46,6 @@ const apiOptions = {
 
 const api = new Api(apiOptions);
 
-const renderCard = new Section({
-  renderer: (card) => {
-    renderCard.addItem(createCard(card));
-  },
-}, '.card__items');
-
 function checkResponse(res) {
   if (res.ok) {
     return res.json();
@@ -59,16 +53,27 @@ function checkResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
+function createCard(card, myId) {
+  const newCard = new Card(card, '#card-template', handleCardClick, handleDeleteCardClick, handleLikeCard, myId);
+  return newCard.generateCard();
+}
+
+const renderCard = new Section({
+  renderer: (card, myId) => {
+    renderCard.addItem(createCard(card, myId));
+  },
+}, '.card__items');
+
 // Карточки должны отображаться на странице только после получения id пользователя.
 api.getUserInfo()
   .then(res => checkResponse(res))
-  .then((data) => {
-    if (data._id) {
+  .then((user) => {
+    if (user._id) {
       api.getInitialCards()
         .then(res => checkResponse(res))
         .then((data) => data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)))
         .then(res => {
-          renderCard.renderItems(res);
+          renderCard.renderItems(res, user._id);
         });
     }
   })
@@ -100,7 +105,9 @@ function addNewCard(data) {
   };
   api.addNewCard(card)
     .then(res => checkResponse(res))
-    .then(newCard => renderCard.addItem(createCard(newCard)))
+    .then(newCard => {
+      renderCard.addItem(createCard(newCard, newCard.owner._id));
+    })
     .catch(err => console.log(err));
 }
 
@@ -180,11 +187,6 @@ const updateAvatarFormPopup = new PopupWithForm({
   popupSelector: '.popup_type_update-avatar',
   handleSubmitForm: updateAvatar
 });
-
-function createCard(card) {
-  const newCard = new Card(card, '#card-template', handleCardClick, handleDeleteCardClick, handleLikeCard);
-  return newCard.generateCard();
-}
 
 profileEditButton.addEventListener('click', () => {
   api.getUserInfo()
