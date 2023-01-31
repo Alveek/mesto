@@ -1,11 +1,14 @@
 export default class Api {
-  constructor({url, headers}) {
+  constructor({
+    url,
+    headers
+  }) {
     this._url = url;
     this._headers = headers;
   }
 
   getUserInfo() {
-    return fetch(`${this._url}/users/me`, {headers: this._headers})
+    return fetch(`${this._url}/users/me`, { headers: this._headers })
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -16,7 +19,7 @@ export default class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._url}/cards`, {headers: this._headers})
+    return fetch(`${this._url}/cards`, { headers: this._headers })
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -28,51 +31,93 @@ export default class Api {
 
   editProfile(data) {
     return fetch(`${this._url}/users/me`, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify({
         name: data.name,
         about: data.about
-      }), headers: this._headers
-    });
+      }),
+      headers: this._headers
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      });
   }
 
   addNewCard(card) {
     return fetch(`${this._url}/cards`, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         name: card.name,
         link: card.link
-      }), headers: this._headers
-    });
+      }),
+      headers: this._headers
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      });
   }
 
   deleteCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
-      method: "DELETE", headers: this._headers
-    });
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      });
   }
 
   likeCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
-      method: "PUT", headers: this._headers
-    });
+      method: 'PUT',
+      headers: this._headers
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      });
   }
 
   unlikeCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
-      method: "DELETE", headers: this._headers
-    });
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      });
   }
 
   updateAvatar(user) {
     return fetch(`${this._url}/users/me/avatar`, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify({
         avatar: user.avatarLink
-      }), headers: this._headers
-    });
+      }),
+      headers: this._headers
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      });
   }
-  // end of class
+
 }
 
 //https://assets-us-01.kc-usercontent.com/500e0a65-283d-00ef-33b2-7f1f20488fe2/f12ddbcf-c21e-45eb-8c21-cce51e7ac775/peppa_pig_splat.png

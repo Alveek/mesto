@@ -2,11 +2,9 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
   /*margin-bottom: 26px;*/
-}
-
-.profile__avatar:hover {
-  z-index: 0;
 }
 
 /*@media screen and (max-width: 768px) {*/
