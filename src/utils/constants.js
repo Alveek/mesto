@@ -10,3 +10,6 @@ export const profileAvatar = document.querySelector(".profile__avatar");
 export const cardDeleteButton = document.querySelector(".card__delete-button");
 export const formUpdateAvatar = document.querySelector(".form_type_update-avatar");
 export const profileAvatarButton = document.querySelector('.profile__updavatar-button');
+export const profileSection = document.querySelector('.profile');
+export const cardSection = document.querySelector('.card');
+export const loader = document.querySelector('.loader')
