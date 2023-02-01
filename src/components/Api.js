@@ -86,6 +86,3 @@ export default class Api {
 
 }
 
-//https://assets-us-01.kc-usercontent.com/500e0a65-283d-00ef-33b2-7f1f20488fe2/f12ddbcf-c21e-45eb-8c21-cce51e7ac775/peppa_pig_splat.png
-//https://static1.personality-database.com/profile_images/08a8cc35c5ad4555aff4ac60758d8511.png
-//https://i.ibb.co/9c1sXrj/avatar.jpg
