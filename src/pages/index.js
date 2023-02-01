@@ -27,6 +27,7 @@ import {
   loader
 } from '../utils/constants.js';
 
+showLoader();
 // Чтобы при открытии страницы не мелькали попапы
 // после загрузки содержимого у попапов удаляется класс скрывающий их
 window.addEventListener('DOMContentLoaded', () => {
@@ -53,13 +54,6 @@ const popupWithImage = new PopupWithImage({ popupSelector: '.popup_type_image-pr
 
 const api = new Api(apiOptions);
 
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
-}
-
 function createCard(card, myId) {
   const newCard = new Card(card, myId, '#card-template', handleCardClick, handleDeleteCardClick, handleLikeCard);
   return newCard.generateCard();
@@ -71,9 +65,8 @@ const renderCard = new Section({
   },
 }, '.card__items');
 
-showLoader();
+
 let render = true;
-let error = '';
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([user, cards]) => {
@@ -83,24 +76,23 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   })
   .catch(err => {
     render = false;
-    loader.innerHTML = `Что-то пошло не так... (${err})`
+    loader.innerHTML = `Что-то пошло не так... (${err})`;
     console.log(err);
   })
   .finally(() => {
-    render ? hideLoader() : null;
+    setTimeout(() => render ? hideLoader() : null, 500);
   });
 
 function editProfile(user, btn) {
   btn.textContent = 'Сохранение...';
   return api.editProfile(user)
-    .then(res => checkResponse(res))
     .then(data => {
       userInfo.setUserInfo(data);
     })
     .catch(err => console.log(err))
     .finally(() => {
       profileFormPopup.close();
-      btn.textContent = 'Сохранить';
+      setTimeout(() => btn.textContent = 'Сохранить', 1000);
     });
 }
 
@@ -115,7 +107,6 @@ function addNewCard(data) {
     link: data.cardLink
   };
   api.addNewCard(card)
-    .then(res => checkResponse(res))
     .then(newCard => {
       renderCard.addItem(createCard(newCard, newCard.owner._id));
     })
@@ -124,11 +115,9 @@ function addNewCard(data) {
 
 function deleteCard(cardId, card) {
   api.deleteCard(cardId)
-    .then(res => checkResponse(res))
     .then(() => {
       card.remove();
       card = null;
-      popupWithConfirmation.close();
     })
     .catch(err => console.log(err));
 }
@@ -137,6 +126,7 @@ const popupWithConfirmation = new PopupWithConfirmation({
   popupSelector: '.popup_type_delete-card',
   handleSubmitForm: (id, card) => {
     deleteCard(id, card);
+    popupWithConfirmation.close();
   }
 });
 
@@ -164,12 +154,10 @@ function handleLikeCard(cardId, cardLikeButton, likeCounter) {
   cardLikeButton.classList.toggle('card__like-button_liked');
   if (cardLikeButton.classList.contains('card__like-button_liked')) {
     api.likeCard(cardId)
-      .then(res => checkResponse(res))
       .then(data => updateCounter(data, likeCounter))
       .catch(err => console.log(err));
   } else {
     api.unlikeCard(cardId)
-      .then(res => checkResponse(res))
       .then(data => updateCounter(data, likeCounter))
       .catch(err => console.log(err));
   }
@@ -178,14 +166,13 @@ function handleLikeCard(cardId, cardLikeButton, likeCounter) {
 function updateAvatar(link, btn) {
   btn.textContent = 'Сохранение...';
   api.updateAvatar(link)
-    .then(res => checkResponse(res))
     .then(() => {
       userInfo.setUserAvatar(link);
     })
     .catch(err => console.log(err))
     .finally(() => {
       updateAvatarFormPopup.close();
-      btn.textContent = 'Сохранить';
+      setTimeout(() => btn.textContent = 'Сохранить', 1000);
     });
 }
 
@@ -196,7 +183,6 @@ const updateAvatarFormPopup = new PopupWithForm({
 
 profileEditButton.addEventListener('click', () => {
   api.getUserInfo()
-    .then(res => checkResponse(res))
     .then(res => {
       profileFormPopup.setInputValues(res);
     })
