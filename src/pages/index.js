@@ -1,7 +1,7 @@
 import './index.css';
 
-import { validationConfig } from '../utils/config.js';
-import { apiOptions } from '../utils/api-config.js';
+import {validationConfig} from '../utils/config.js';
+import {apiOptions} from '../utils/api-config.js';
 import Api from '../components/Api.js';
 import FormValidator from '../components/FormValidator.js';
 import Card from '../components/Card.js';
@@ -34,7 +34,7 @@ const api = new Api(apiOptions);
 const profileFormValidator = new FormValidator(formProfile, validationConfig);
 const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 const avatarFormValidator = new FormValidator(formUpdateAvatar, validationConfig);
-const userInfo = new UserInfo(".profile__name", ".profile__job", ".profile__avatar");
+const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar');
 const popupWithImage = new PopupWithImage({popupSelector: '.popup_type_image-preview'});
 
 function showLoader() {
@@ -52,10 +52,6 @@ function hideLoader() {
   cardSection.classList.remove('hide');
 }
 
-function toggleSubmitButtonText(button) {
-  button.textContent = button.textContent === 'Сохранить' ? 'Сохранение...' : 'Сохранить';
-}
-
 let render = true;
 
 const profileFormPopup = new PopupWithForm({
@@ -63,24 +59,17 @@ const profileFormPopup = new PopupWithForm({
   handleSubmitForm: editProfile,
 });
 
-function editProfile(user, btn) {
-  toggleSubmitButtonText(btn);
+function editProfile(user) {
   return api.editProfile(user)
     .then((data) => {
       userInfo.setUserInfo(data);
     })
-    .catch((err) => console.log(err))
-    .finally(() => {
-      profileFormPopup.close();
-      setTimeout(() => toggleSubmitButtonText(btn), 1000);
-    });
+    .catch((err) => console.log(err));
 }
 
 function deleteCard(cardId, card) {
-  api.deleteCard(cardId)
+  return api.deleteCard(cardId)
     .then(() => {
-      card.remove();
-      card = null;
       popupWithConfirmation.close();
     })
     .catch((err) => console.log(err));
@@ -100,19 +89,24 @@ function handleDeleteCardClick(id, el) {
   popupWithConfirmation.open(id, el);
 }
 
-function updateCounter(data, counter) {
-  counter.textContent = data.likes.length;
-}
+// function updateCounter(data, counter) {
+//   counter.textContent = data.likes.length;
+// }
 
-function handleLikeCard(cardId, cardLikeButton, likeCounter) {
-  cardLikeButton.classList.toggle('card__like-button_liked');
-  if (cardLikeButton.classList.contains('card__like-button_liked')) {
-    api.likeCard(cardId)
-      .then((data) => updateCounter(data, likeCounter))
+function handleLikeCard(cardId, cardLikeButton) {
+  if (!cardLikeButton.classList.contains('card__like-button_liked')) {
+   return api.likeCard(cardId)
+      .then((data) => {
+        cardLikeButton.classList.toggle('card__like-button_liked');
+        // updateCounter(data, likeCounter);
+      })
       .catch((err) => console.log(err));
   } else {
-    api.unlikeCard(cardId)
-      .then((data) => updateCounter(data, likeCounter))
+   return api.unlikeCard(cardId)
+      .then((data) => {
+        cardLikeButton.classList.toggle('card__like-button_liked');
+        // updateCounter(data, likeCounter);
+      })
       .catch((err) => console.log(err));
   }
 }
@@ -138,10 +132,9 @@ function addNewCard(data) {
     name: data.cardName,
     link: data.cardLink,
   };
-  api.addNewCard(card)
+  return api.addNewCard(card)
     .then((newCard) => {
       renderCard.addItem(createCard(newCard, newCard.owner._id));
-      newCardFormPopup.close();
     })
     .catch((err) => console.log(err));
 }
@@ -151,29 +144,18 @@ const updateAvatarFormPopup = new PopupWithForm({
   handleSubmitForm: updateAvatar,
 });
 
-function updateAvatar(link, btn) {
-  toggleSubmitButtonText(btn);
-  api.updateAvatar(link)
+function updateAvatar(link) {
+  return api.updateAvatar(link)
     .then(() => {
       userInfo.setUserAvatar(link);
     })
-    .catch((err) => console.log(err))
-    .finally(() => {
-      updateAvatarFormPopup.close();
-      setTimeout(() => toggleSubmitButtonText(btn), 1000);
-    });
+    .catch((err) => console.log(err));
 }
 
 profileEditButton.addEventListener('click', () => {
-  api.getUserInfo()
-    .then((res) => {
-      profileFormPopup.setInputValues(res);
-    })
-    .then(() => {
-      profileFormValidator.resetValidation();
-      profileFormPopup.open();
-    })
-    .catch((err) => console.log(err));
+  profileFormPopup.setInputValues(userInfo.getUserInfo());
+  profileFormValidator.resetValidation();
+  profileFormPopup.open();
 });
 
 cardAddButton.addEventListener('click', () => {
