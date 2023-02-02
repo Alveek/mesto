@@ -1,4 +1,3 @@
-/* eslint-disable no-console,import/extensions */
 import './index.css';
 
 import { validationConfig } from '../utils/config.js';
@@ -17,11 +16,8 @@ import {
   cardAddButton,
   profileAvatarButton,
   popups,
-  profileNameText,
-  profileJobText,
   formProfile,
   formNewCard,
-  profileAvatar,
   formUpdateAvatar,
   profileSection,
   cardSection,
@@ -38,21 +34,22 @@ const api = new Api(apiOptions);
 const profileFormValidator = new FormValidator(formProfile, validationConfig);
 const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 const avatarFormValidator = new FormValidator(formUpdateAvatar, validationConfig);
-const userInfo = new UserInfo(profileNameText, profileJobText, profileAvatar);
+const userInfo = new UserInfo(".profile__name", ".profile__job", ".profile__avatar");
 const popupWithImage = new PopupWithImage({popupSelector: '.popup_type_image-preview'});
 
 function showLoader() {
-  loader.style.display = 'block';
-  profileSection.style.display = 'none';
-  cardSection.style.display = 'none';
+  loader.classList.add('show');
+  profileSection.classList.add('hide');
+  cardSection.classList.add('hide');
 }
 
 showLoader();
 
 function hideLoader() {
-  loader.style.display = 'none';
-  profileSection.style.display = 'grid';
-  cardSection.style.display = 'block';
+  loader.classList.remove('show');
+  loader.classList.add('hide');
+  profileSection.classList.remove('hide');
+  cardSection.classList.remove('hide');
 }
 
 function toggleSubmitButtonText(button) {
@@ -201,7 +198,7 @@ avatarFormValidator.enableValidation();
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([user, cards]) => {
-    userInfo.getUserInfo(user);
+    userInfo.setUserInfo(user);
     cards.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
     renderCard.renderItems(cards, user._id);
   })
