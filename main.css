@@ -49,6 +49,8 @@
 .form__input_type_error{border-bottom-color:red}
 .loader{align-self:center;color:#fff;font-size:18px;font-weight:400;justify-self:center;line-height:22px;max-width:200px;text-align:center}
 .loader__circle{animation:loading 1s infinite alternate;background:#007db6;border-radius:.6em;display:inline-block;height:.6em;margin:.19em;vertical-align:middle;width:.6em}.loader__circle:nth-of-type(2){animation-delay:.2s;background:#008fb2}.loader__circle:nth-of-type(3){animation-delay:.4s;background:#009b9e}.loader__circle:nth-of-type(4){animation-delay:.6s;background:#00a77d}.loader__circle:nth-of-type(5){animation-delay:.8s;background:#00b247}.loader__circle:nth-of-type(6){animation-delay:1s;background:#5ab027}.loader__circle:nth-of-type(7){animation-delay:1.2s;background:#a0b61e}@keyframes loading{0%{opacity:0}to{opacity:1}}
+.show{display:block}
+.hide{display:none}
 
 
 /*# sourceMappingURL=main.css.map*/
