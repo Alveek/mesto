@@ -20,13 +20,17 @@ export default class Card {
     return this._cardElement;
   }
 
-  _deleteCard(item) {
+  deleteCard(item) {
     item.remove();
     item = null;
   }
 
-  _toggleLikeCard() {
-    this.classList.toggle('card__like-button_liked');
+  toggleLikeCard(btn) {
+    btn.classList.toggle('card__like-button_liked');
+  }
+
+  updateCounter(data, likeCounter) {
+    likeCounter.textContent = data.likes.length;
   }
 
   _showDeleteButton() {
@@ -37,9 +41,7 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._likeButton.addEventListener('click', () => this._handleLikeCard(this._id, this._likeButton).then(() => {
-      this._cardLikeCounter.textContent = this._likes.length;
-    }));
+    this._likeButton.addEventListener('click', () => this._handleLikeCard(this._id, this._likeButton, this._cardLikeCounter));
     this._deleteButton ? this._deleteButton.addEventListener('click', () =>
       this._handleDeleteCardClick(this._id, this._element)) : null;
     this._cardImage.addEventListener('click', () => this._handleCardClick(this._cardName, this._cardLink));

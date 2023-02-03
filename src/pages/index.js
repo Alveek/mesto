@@ -36,6 +36,7 @@ const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 const avatarFormValidator = new FormValidator(formUpdateAvatar, validationConfig);
 const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar');
 const popupWithImage = new PopupWithImage({popupSelector: '.popup_type_image-preview'});
+let cardElement;
 
 function showLoader() {
   loader.classList.add('show');
@@ -71,6 +72,7 @@ function deleteCard(cardId, card) {
   return api.deleteCard(cardId)
     .then(() => {
       popupWithConfirmation.close();
+      cardElement.deleteCard(card);
     })
     .catch((err) => console.log(err));
 }
@@ -89,31 +91,28 @@ function handleDeleteCardClick(id, el) {
   popupWithConfirmation.open(id, el);
 }
 
-// function updateCounter(data, counter) {
-//   counter.textContent = data.likes.length;
-// }
 
-function handleLikeCard(cardId, cardLikeButton) {
+function handleLikeCard(cardId, cardLikeButton, likeCounter) {
   if (!cardLikeButton.classList.contains('card__like-button_liked')) {
    return api.likeCard(cardId)
       .then((data) => {
-        cardLikeButton.classList.toggle('card__like-button_liked');
-        // updateCounter(data, likeCounter);
+        cardElement.toggleLikeCard(cardLikeButton)
+        cardElement.updateCounter(data, likeCounter);
       })
       .catch((err) => console.log(err));
   } else {
    return api.unlikeCard(cardId)
       .then((data) => {
-        cardLikeButton.classList.toggle('card__like-button_liked');
-        // updateCounter(data, likeCounter);
+        cardElement.toggleLikeCard(cardLikeButton)
+        cardElement.updateCounter(data, likeCounter);
       })
       .catch((err) => console.log(err));
   }
 }
 
 function createCard(card, myId) {
-  const newCard = new Card(card, myId, '#card-template', handleCardClick, handleDeleteCardClick, handleLikeCard);
-  return newCard.generateCard();
+  cardElement = new Card(card, myId, '#card-template', handleCardClick, handleDeleteCardClick, handleLikeCard);
+  return cardElement.generateCard();
 }
 
 const renderCard = new Section({
