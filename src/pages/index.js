@@ -1,7 +1,7 @@
 import './index.css';
 
-import {validationConfig} from '../utils/config.js';
-import {apiOptions} from '../utils/api-config.js';
+import { validationConfig } from '../utils/config.js';
+import { apiOptions } from '../utils/api-config.js';
 import Api from '../components/Api.js';
 import FormValidator from '../components/FormValidator.js';
 import Card from '../components/Card.js';
@@ -35,7 +35,7 @@ const profileFormValidator = new FormValidator(formProfile, validationConfig);
 const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 const avatarFormValidator = new FormValidator(formUpdateAvatar, validationConfig);
 const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar');
-const popupWithImage = new PopupWithImage({popupSelector: '.popup_type_image-preview'});
+const popupWithImage = new PopupWithImage({ popupSelector: '.popup_type_image-preview' });
 let cardElement;
 
 function showLoader() {
@@ -60,19 +60,26 @@ const profileFormPopup = new PopupWithForm({
   handleSubmitForm: editProfile,
 });
 
-function editProfile(user) {
+function editProfile(user, btn) {
+  const initialText = btn.textContent;
+  btn.textContent = 'Сохранение...';
   return api.editProfile(user)
     .then((data) => {
       userInfo.setUserInfo(data);
     })
+    .then(() => {
+      profileFormPopup.close();
+      btn.textContent = initialText;
+    })
+    .then()
     .catch((err) => console.log(err));
 }
 
-function deleteCard(cardId, card) {
-  return api.deleteCard(cardId)
+function deleteCard(card) {
+  return api.deleteCard(card.id)
     .then(() => {
       popupWithConfirmation.close();
-      cardElement.deleteCard(card);
+      card.deleteCardDOM(card);
     })
     .catch((err) => console.log(err));
 }
@@ -82,7 +89,6 @@ const popupWithConfirmation = new PopupWithConfirmation({
   handleSubmitForm: deleteCard,
 });
 
-
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
@@ -91,27 +97,27 @@ function handleDeleteCardClick(id, el) {
   popupWithConfirmation.open(id, el);
 }
 
+function likeCard(card) {
+   api.likeCard(card.id)
+    .then((data) => {
+      card.toggleLikeCard();
+      card.updateCounter(data);
+    })
+    .catch((err) => console.log(err));
+}
 
-function handleLikeCard(cardId, cardLikeButton, likeCounter) {
-  if (!cardLikeButton.classList.contains('card__like-button_liked')) {
-   return api.likeCard(cardId)
-      .then((data) => {
-        cardElement.toggleLikeCard(cardLikeButton)
-        cardElement.updateCounter(data, likeCounter);
-      })
-      .catch((err) => console.log(err));
-  } else {
-   return api.unlikeCard(cardId)
-      .then((data) => {
-        cardElement.toggleLikeCard(cardLikeButton)
-        cardElement.updateCounter(data, likeCounter);
-      })
-      .catch((err) => console.log(err));
-  }
+function dislikeCard(card) {
+   api.unlikeCard(card.id)
+    .then((data) => {
+      card.toggleLikeCard();
+      card.updateCounter(data);
+    })
+    .catch((err) => console.log(err));
 }
 
 function createCard(card, myId) {
-  cardElement = new Card(card, myId, '#card-template', handleCardClick, handleDeleteCardClick, handleLikeCard);
+  cardElement = new Card(card, myId, '#card-template',
+    handleCardClick, handleDeleteCardClick, likeCard, dislikeCard);
   return cardElement.generateCard();
 }
 
@@ -126,7 +132,9 @@ const newCardFormPopup = new PopupWithForm({
   handleSubmitForm: addNewCard,
 });
 
-function addNewCard(data) {
+function addNewCard(data, btn) {
+  const initialText = btn.textContent;
+  btn.textContent = 'Сохранение...';
   const card = {
     name: data.cardName,
     link: data.cardLink,
@@ -134,6 +142,10 @@ function addNewCard(data) {
   return api.addNewCard(card)
     .then((newCard) => {
       renderCard.addItem(createCard(newCard, newCard.owner._id));
+    })
+    .then(() => {
+      newCardFormPopup.close();
+      btn.textContent = initialText;
     })
     .catch((err) => console.log(err));
 }
@@ -143,10 +155,16 @@ const updateAvatarFormPopup = new PopupWithForm({
   handleSubmitForm: updateAvatar,
 });
 
-function updateAvatar(link) {
+function updateAvatar(link, btn) {
+  const initialText = btn.textContent;
+  btn.textContent = 'Сохранение...';
   return api.updateAvatar(link)
     .then(() => {
       userInfo.setUserAvatar(link);
+    })
+    .then(() => {
+      updateAvatarFormPopup.close();
+      btn.textContent = initialText;
     })
     .catch((err) => console.log(err));
 }

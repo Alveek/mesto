@@ -1,9 +1,12 @@
 import Popup from './Popup.js';
-import {logPlugin} from '@babel/preset-env/lib/debug';
+import { logPlugin } from '@babel/preset-env/lib/debug';
 
 export default class PopupWithForm extends Popup {
-  constructor({popupSelector, handleSubmitForm}) {
-    super({popupSelector});
+  constructor({
+    popupSelector,
+    handleSubmitForm
+  }) {
+    super({ popupSelector });
     this._form = this._popupElement.querySelector('form[name]');
     this._inputList = this._form.querySelectorAll('.form__input');
     this._handleSubmitForm = handleSubmitForm;
@@ -25,10 +28,7 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {
     this._form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const initialText = this._submitButton.textContent;
-      this._submitButton.textContent = 'Сохранение...';
-      this._handleSubmitForm(this._getInputValues())
-        .then(() => this.close()).finally(() => this._submitButton.textContent = initialText);
+      this._handleSubmitForm(this._getInputValues(), this._submitButton);
     });
     super.setEventListeners();
   }

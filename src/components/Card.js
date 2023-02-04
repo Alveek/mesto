@@ -1,15 +1,16 @@
 export default class Card {
-  constructor(data, myId, templateSelector, handleCardClick, handleDeleteCardClick, handleLikeCard) {
+  constructor(data, myId, templateSelector, handleCardClick, handleDeleteCardClick, likeCard, dislikeCard) {
+    this.id = data._id;
     this._cardName = data.name;
     this._cardLink = data.link;
     this._likes = data.likes;
-    this._id = data._id;
     this._ownerId = data.owner._id;
     this._myId = myId;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCardClick = handleDeleteCardClick;
-    this._handleLikeCard = handleLikeCard;
+    this._likeCard = likeCard;
+    this._dislikeCard = dislikeCard;
   }
 
   _getTemplate() {
@@ -20,17 +21,17 @@ export default class Card {
     return this._cardElement;
   }
 
-  deleteCard(item) {
-    item.remove();
-    item = null;
+  deleteCardDOM() {
+    this._element.remove();
+    this._element = null;
   }
 
-  toggleLikeCard(btn) {
-    btn.classList.toggle('card__like-button_liked');
+  toggleLikeCard() {
+    this._likeButton.classList.toggle('card__like-button_liked');
   }
 
-  updateCounter(data, likeCounter) {
-    likeCounter.textContent = data.likes.length;
+  updateCounter(data) {
+    this._cardLikeCounter.textContent = data.likes.length;
   }
 
   _showDeleteButton() {
@@ -40,10 +41,19 @@ export default class Card {
     }
   }
 
+  // как только я понял, что можно наружу передать this - все встало на свои места. Где-то я упустил этот момент.
   _setEventListeners() {
-    this._likeButton.addEventListener('click', () => this._handleLikeCard(this._id, this._likeButton, this._cardLikeCounter));
-    this._deleteButton ? this._deleteButton.addEventListener('click', () =>
-      this._handleDeleteCardClick(this._id, this._element)) : null;
+    this._likeButton.addEventListener('click', () => {
+      this._likeButton.classList.contains('card__like-button_liked')
+        ? this._dislikeCard(this)
+        : this._likeCard(this);
+    });
+
+    this._deleteButton
+      ? this._deleteButton.addEventListener('click', () =>
+      this._handleDeleteCardClick(this))
+      : null;
+
     this._cardImage.addEventListener('click', () => this._handleCardClick(this._cardName, this._cardLink));
   }
 
