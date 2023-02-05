@@ -14,9 +14,9 @@ export default class Card {
   }
 
   _getTemplate() {
-    this._cardElement = document.querySelector(this._templateSelector)
-      .content
-      .querySelector('.card__item')
+    this._cardElement = document
+      .querySelector(this._templateSelector)
+      .content.querySelector(".card__item")
       .cloneNode(true);
     return this._cardElement;
   }
@@ -27,7 +27,7 @@ export default class Card {
   }
 
   toggleLikeCard() {
-    this._likeButton.classList.toggle('card__like-button_liked');
+    this._likeButton.classList.toggle("card__like-button_liked");
   }
 
   updateCounter(data) {
@@ -41,35 +41,31 @@ export default class Card {
     }
   }
 
-  // как только я понял, что можно наружу передать this - все встало на свои места. Где-то я упустил этот момент.
   _setEventListeners() {
-    this._likeButton.addEventListener('click', () => {
-      this._likeButton.classList.contains('card__like-button_liked')
-        ? this._dislikeCard(this)
-        : this._likeCard(this);
+    this._likeButton.addEventListener("click", () => {
+      this._likeButton.classList.contains("card__like-button_liked") ? this._dislikeCard(this) : this._likeCard(this);
     });
 
-    this._deleteButton
-      ? this._deleteButton.addEventListener('click', () =>
-      this._handleDeleteCardClick(this))
-      : null;
+    this._deleteButton ? this._deleteButton.addEventListener("click", () => this._handleDeleteCardClick(this)) : null;
 
-    this._cardImage.addEventListener('click', () => this._handleCardClick(this._cardName, this._cardLink));
+    this._cardImage.addEventListener("click", () => this._handleCardClick(this._cardName, this._cardLink));
   }
 
   generateCard() {
     this._element = this._getTemplate();
-    this._cardImage = this._element.querySelector('.card__image');
-    this._cardTitle = this._element.querySelector('.card__title');
-    this._cardLikeCounter = this._element.querySelector('.card__like-counter');
-    this._deleteButton = this._element.querySelector('.card__delete-button');
-    this._likeButton = this._element.querySelector('.card__like-button');
+    this._cardImage = this._element.querySelector(".card__image");
+    this._cardTitle = this._element.querySelector(".card__title");
+    this._cardLikeCounter = this._element.querySelector(".card__like-counter");
+    this._deleteButton = this._element.querySelector(".card__delete-button");
+    this._likeButton = this._element.querySelector(".card__like-button");
 
     this._cardImage.src = this._cardLink;
     this._cardImage.alt = this._cardName;
     this._cardTitle.textContent = this._cardName;
     this._cardLikeCounter.textContent = this._likes.length;
-    this._likes.some(item => item._id === this._myId) ? this._likeButton.classList.add('card__like-button_liked') : null;
+    this._likes.some((item) => item._id === this._myId)
+      ? this._likeButton.classList.add("card__like-button_liked")
+      : null;
     this._setEventListeners();
     this._showDeleteButton();
 

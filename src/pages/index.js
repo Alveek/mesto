@@ -1,15 +1,15 @@
-import './index.css';
+import "./index.css";
 
-import { validationConfig } from '../utils/config.js';
-import { apiOptions } from '../utils/api-config.js';
-import Api from '../components/Api.js';
-import FormValidator from '../components/FormValidator.js';
-import Card from '../components/Card.js';
-import Section from '../components/Section.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import UserInfo from '../components/UserInfo.js';
-import PopupWithForm from '../components/PopupWithForm.js';
-import PopupWithConfirmation from '../components/PopupWithConfirmation';
+import { validationConfig } from "../utils/config.js";
+import { apiOptions } from "../utils/api-config.js";
+import Api from "../components/Api.js";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation";
 
 import {
   profileEditButton,
@@ -22,70 +22,69 @@ import {
   profileSection,
   cardSection,
   loader,
-} from '../utils/constants.js';
+} from "../utils/constants.js";
 
 // Чтобы при открытии страницы не мелькали попапы
 // после загрузки содержимого у попапов удаляется класс скрывающий их
-window.addEventListener('DOMContentLoaded', () => {
-  popups.forEach((popup) => popup.classList.remove('popup_hidden'));
+window.addEventListener("DOMContentLoaded", () => {
+  popups.forEach((popup) => popup.classList.remove("popup_hidden"));
 });
 
 const api = new Api(apiOptions);
 const profileFormValidator = new FormValidator(formProfile, validationConfig);
 const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 const avatarFormValidator = new FormValidator(formUpdateAvatar, validationConfig);
-const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar');
-const popupWithImage = new PopupWithImage({ popupSelector: '.popup_type_image-preview' });
+const userInfo = new UserInfo(".profile__name", ".profile__job", ".profile__avatar");
+const popupWithImage = new PopupWithImage({ popupSelector: ".popup_type_image-preview" });
 let cardElement;
 
 function showLoader() {
-  loader.classList.add('show');
-  profileSection.classList.add('hide');
-  cardSection.classList.add('hide');
+  loader.classList.add("show");
+  profileSection.classList.add("hide");
+  cardSection.classList.add("hide");
 }
 
 showLoader();
 
 function hideLoader() {
-  loader.classList.remove('show');
-  loader.classList.add('hide');
-  profileSection.classList.remove('hide');
-  cardSection.classList.remove('hide');
+  loader.classList.remove("show");
+  loader.classList.add("hide");
+  profileSection.classList.remove("hide");
+  cardSection.classList.remove("hide");
 }
 
 let render = true;
 
 const profileFormPopup = new PopupWithForm({
-  popupSelector: '.popup_type_profile-info',
+  popupSelector: ".popup_type_profile-info",
   handleSubmitForm: editProfile,
 });
 
-function editProfile(user, btn) {
-  const initialText = btn.textContent;
-  btn.textContent = 'Сохранение...';
-  return api.editProfile(user)
+function editProfile(user) {
+  return api
+    .editProfile(user)
     .then((data) => {
       userInfo.setUserInfo(data);
     })
     .then(() => {
       profileFormPopup.close();
-      btn.textContent = initialText;
     })
-    .then()
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .finally(() => profileFormPopup.isLoading(false));
 }
 
 function deleteCard(card) {
-  return api.deleteCard(card.id)
+  return api
+    .deleteCard(card.id)
     .then(() => {
       popupWithConfirmation.close();
-      card.deleteCardDOM(card);
+      card.deleteCardDOM();
     })
     .catch((err) => console.log(err));
 }
 
 const popupWithConfirmation = new PopupWithConfirmation({
-  popupSelector: '.popup_type_delete-card',
+  popupSelector: ".popup_type_delete-card",
   handleSubmitForm: deleteCard,
 });
 
@@ -98,7 +97,8 @@ function handleDeleteCardClick(id, el) {
 }
 
 function likeCard(card) {
-   api.likeCard(card.id)
+  api
+    .likeCard(card.id)
     .then((data) => {
       card.toggleLikeCard();
       card.updateCounter(data);
@@ -107,7 +107,8 @@ function likeCard(card) {
 }
 
 function dislikeCard(card) {
-   api.unlikeCard(card.id)
+  api
+    .unlikeCard(card.id)
     .then((data) => {
       card.toggleLikeCard();
       card.updateCounter(data);
@@ -116,71 +117,79 @@ function dislikeCard(card) {
 }
 
 function createCard(card, myId) {
-  cardElement = new Card(card, myId, '#card-template',
-    handleCardClick, handleDeleteCardClick, likeCard, dislikeCard);
+  const cardElement = new Card(
+    card,
+    myId,
+    "#card-template",
+    handleCardClick,
+    handleDeleteCardClick,
+    likeCard,
+    dislikeCard
+  );
   return cardElement.generateCard();
 }
 
-const renderCard = new Section({
-  renderer: (card, myId) => {
-    renderCard.addItem(createCard(card, myId));
+const renderCard = new Section(
+  {
+    renderer: (card, myId) => {
+      renderCard.addItem(createCard(card, myId));
+    },
   },
-}, '.card__items');
+  ".card__items"
+);
 
 const newCardFormPopup = new PopupWithForm({
-  popupSelector: '.popup_type_add-card',
+  popupSelector: ".popup_type_add-card",
   handleSubmitForm: addNewCard,
 });
 
-function addNewCard(data, btn) {
-  const initialText = btn.textContent;
-  btn.textContent = 'Сохранение...';
+function addNewCard(data) {
   const card = {
     name: data.cardName,
     link: data.cardLink,
   };
-  return api.addNewCard(card)
+  return api
+    .addNewCard(card)
     .then((newCard) => {
       renderCard.addItem(createCard(newCard, newCard.owner._id));
     })
     .then(() => {
       newCardFormPopup.close();
-      btn.textContent = initialText;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .finally(() => newCardFormPopup.isLoading(false));
 }
 
 const updateAvatarFormPopup = new PopupWithForm({
-  popupSelector: '.popup_type_update-avatar',
+  popupSelector: ".popup_type_update-avatar",
   handleSubmitForm: updateAvatar,
 });
 
-function updateAvatar(link, btn) {
-  const initialText = btn.textContent;
-  btn.textContent = 'Сохранение...';
-  return api.updateAvatar(link)
+function updateAvatar(link) {
+  return api
+    .updateAvatar(link)
     .then(() => {
       userInfo.setUserAvatar(link);
     })
     .then(() => {
       updateAvatarFormPopup.close();
-      btn.textContent = initialText;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .finally(() => updateAvatarFormPopup.isLoading(false));
 }
 
-profileEditButton.addEventListener('click', () => {
+profileEditButton.addEventListener("click", () => {
   profileFormPopup.setInputValues(userInfo.getUserInfo());
   profileFormValidator.resetValidation();
   profileFormPopup.open();
 });
 
-cardAddButton.addEventListener('click', () => {
+cardAddButton.addEventListener("click", () => {
   cardFormValidator.resetValidation();
   newCardFormPopup.open();
 });
 
-profileAvatarButton.addEventListener('click', () => {
+profileAvatarButton.addEventListener("click", () => {
   avatarFormValidator.resetValidation();
   updateAvatarFormPopup.open();
 });

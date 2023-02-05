@@ -1,16 +1,14 @@
-import Popup from './Popup.js';
-import { logPlugin } from '@babel/preset-env/lib/debug';
+import Popup from "./Popup.js";
+import { logPlugin } from "@babel/preset-env/lib/debug";
 
 export default class PopupWithForm extends Popup {
-  constructor({
-    popupSelector,
-    handleSubmitForm
-  }) {
+  constructor({ popupSelector, handleSubmitForm }) {
     super({ popupSelector });
-    this._form = this._popupElement.querySelector('form[name]');
-    this._inputList = this._form.querySelectorAll('.form__input');
+    this._form = this._popupElement.querySelector("form[name]");
+    this._inputList = this._form.querySelectorAll(".form__input");
     this._handleSubmitForm = handleSubmitForm;
-    this._submitButton = this._form.querySelector('button');
+    this._submitButton = this._form.querySelector("button");
+    this._initialBtnText = this._submitButton.textContent;
   }
 
   _getInputValues() {
@@ -25,10 +23,17 @@ export default class PopupWithForm extends Popup {
     });
   }
 
+  isLoading(loaded) {
+    loaded
+      ? (this._submitButton.textContent = "Сохранение...")
+      : (this._submitButton.textContent = this._initialBtnText);
+  }
+
   setEventListeners() {
-    this._form.addEventListener('submit', (event) => {
+    this._form.addEventListener("submit", (event) => {
       event.preventDefault();
-      this._handleSubmitForm(this._getInputValues(), this._submitButton);
+      this.isLoading(true);
+      this._handleSubmitForm(this._getInputValues());
     });
     super.setEventListeners();
   }
