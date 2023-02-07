@@ -1,5 +1,4 @@
 import Popup from "./Popup.js";
-import { logPlugin } from "@babel/preset-env/lib/debug";
 
 export default class PopupWithForm extends Popup {
   constructor({ popupSelector, handleSubmitForm }) {
