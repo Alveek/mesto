@@ -91,8 +91,8 @@ function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
 
-function handleDeleteCardClick(id) {
-  popupWithConfirmation.open(id);
+function handleDeleteCardClick(cardEl) {
+  popupWithConfirmation.open(cardEl);
 }
 
 function likeCard(card) {

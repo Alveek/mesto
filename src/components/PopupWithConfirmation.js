@@ -10,15 +10,15 @@ export default class PopupWithConfirmation extends Popup {
     this._handleSubmitForm = handleSubmitForm;
   }
 
-  open(id)  {
-    this._cardId = id;
+  open(cardEl)  {
+    this._cardEl = cardEl;
     super.open();
   }
 
   setEventListeners() {
     this._form.addEventListener('submit', (event) => {
       event.preventDefault();
-      this._handleSubmitForm(this._cardId);
+      this._handleSubmitForm(this._cardEl);
     });
     super.setEventListeners();
   }
