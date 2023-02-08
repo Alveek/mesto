@@ -36,7 +36,6 @@ const cardFormValidator = new FormValidator(formNewCard, validationConfig);
 const avatarFormValidator = new FormValidator(formUpdateAvatar, validationConfig);
 const userInfo = new UserInfo(".profile__name", ".profile__job", ".profile__avatar");
 const popupWithImage = new PopupWithImage({ popupSelector: ".popup_type_image-preview" });
-let cardElement;
 
 function showLoader() {
   loader.classList.add("show");
